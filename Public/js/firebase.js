@@ -3,12 +3,16 @@ console.log("firebase");
 
 // Initialize Firebase
 var app = {
-  apiKey: "AIzaSyCvT55qbatIH6Gx8Mn2Ns4Ujx3v2t7RdQA",
-  authDomain: "styrax-47f13.firebaseapp.com",
-  databaseURL: "https://styrax-47f13.firebaseio.com",
-  projectId: "styrax-47f13",
-  storageBucket: "styrax-47f13.appspot.com",
-  messagingSenderId: "524300593780"
+
+
+      apiKey: "AIzaSyDCp28n1nRZomkupguisYl-lUZhKQKCE8E",
+      authDomain: "styrax-mini-safeway.firebaseapp.com",
+      databaseURL: "https://styrax-mini-safeway.firebaseio.com",
+      projectId: "styrax-mini-safeway",
+      storageBucket: "styrax-mini-safeway.appspot.com",
+      messagingSenderId: "156521397776"
+
+
 };
 firebase.initializeApp(app);
 
@@ -83,20 +87,35 @@ function handleLogin() {
   var email = document.getElementById('login_email').value;
   var password = document.getElementById('login_password').value;
 
-  firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-    console.log("login successful");
-    alert("login successful");
-  }).catch(function (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    alert('login unsuccessful');
-    alert(errorCode, errorMessage);
-    console.log(errorCode);
-    console.log(errorMessage);
-  }
-console.log("test");
-alert("test"););
+//   firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+//     console.log("login successful");
+//     alert("login successful");
+//   }).catch(function (error) {
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     alert('login unsuccessful');
+//     alert(errorCode, errorMessage);
+//     console.log(errorCode);
+//     console.log(errorMessage);
+//   }
+// console.log("test");
+// alert("test"););
+firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+      alert('login unsuccessful');
+      alert(errorCode, errorMessage);
+      console.log(errorCode);
+      console.log(errorMessage);
+
+});
+  alert(email);
+  alert(password);
 }
+
+
+
 
 function handleLogout() {
   firebase.auth().signOut().then(function() {
@@ -111,13 +130,13 @@ function handleLogout() {
   });
 }
 
-List<String> cart = new ArrayList<>();
-  function addItem(item)
-{
-
-      list.add(item);
-      DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-      for(String item : cart) {
-          rootRef.child("cart").child(item).setValue(true);
-      }
-    }
+// List<String> cart = new ArrayList<>();
+//   function addItem(item)
+// {
+//
+//       list.add(item);
+//       DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//       for(String item : cart) {
+//           rootRef.child("cart").child(item).setValue(true);
+//       }
+//     }
