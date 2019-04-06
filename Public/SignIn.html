@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>MiniSafeWay</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="WebStyle.css">
+    </head>
+    <body>
+        <div class="main">
+            <!--Header-->
+            <nav class="navbar navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="./Home.html"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNav">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="./SignIn.html" class="navOpt">Sign In</a></li>
+                            <li><a href="./SignUp.html" class="navOpt">Sign Up</a></li>
+                            <li><a href="./Cart.html" class="navOpt"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content">
+                <!--Sign In Form-->
+                <h2 style="text-align: center; height:39.5px; font-size: 34px;">Sign In</h2>
+                <hr>
+                <form class="flex-container container" style="max-width: 400px;">
+                    <div>
+                        <label for="input_email">Email Address</label><br>
+                        <input class="inputbox" type="email" id="input_email" placeholder="enter email address" required>
+                    </div>
+                    <div>
+                        <label for="input_password">Password</label><br>
+                        <input class="inputbox" type="password" id="input_password" placeholder="enter password" required>
+                        <a href="#" style="color: black; font-size: 10px; position:relative; left: 200px;">Forgot Password?</a><br>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="keepSignedIn">Keep me Signed In</label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="submitbtn" onclick="" type="submit" >Sign In</button>
+                        <div style="font-size: 12px; position: relative; left: 60px; bottom: 12px;">
+                            <i>Don't Have an Account?</i>
+                            <a href="./SignUp.html" style="color: black;" ><b>Sign Up</b></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--Footer-->
+        <footer >
+            <hr style="margin-bottom: 80px;">
+            <div class="footer">
+                <h6>&copy; 2019 SE-133. All rights reserved.</h6>
+            </div>
+        </footer>
+    </body>
+</html>

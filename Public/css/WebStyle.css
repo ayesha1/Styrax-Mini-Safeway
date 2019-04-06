@@ -1,0 +1,266 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Apr 1, 2019, 5:20:15 PM
+    Author     : chari
+*/
+/*Layout that keep footer at the bottom*/
+html, body{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.main{
+    flex: 1 0 auto;
+}
+.footer{
+    width: 100%;
+    padding: 4px;
+    background: #ff5d5d;
+    color: white;
+    text-align: center;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/*Navbar*/
+div.content{
+    margin-top: 80px;
+}
+.navLogo{
+    width: 200px;
+}
+.navOpt{
+    color: white;
+    font-size: 15px;
+}
+.navOpt:hover{
+    color: black;
+}
+a.active{
+    background: #ff855c;
+}
+nav.navbar{
+    background: #ff5d5d;
+    border:none;
+    border-radius: 3px;
+}
+button.navbar-toggle{border: white solid 1px;}
+button:hover.navbar-toggle{background: #ff8080;}
+.icon-bar{background: white;}
+
+/*SignIn/SignUp*/
+form.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+}
+form.flex-container > div{
+    margin: 10px auto;
+    border: white 10px solid;
+    width: 320px;
+}
+.inputbox{
+    width: 300px;
+    height: 40px;
+    border: solid 2.5px #ff9999;
+    border-radius: 15px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+.inputbox:focus{
+    border: solid 2.5px #ff5d5d;
+    border-radius: 5px;
+}
+.submitbtn{
+    color: white;
+    font-size: 25px;
+    background: #ff5d5d;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    margin: 12px 50px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+.submitbtn:hover{
+    border-radius: 10px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*Home*/
+/*HomeTop*/
+.hometop{
+    text-align: center;
+    padding-bottom: 50px;
+}
+.message{
+    font-size: 20px;
+    color: #ff5d5d;
+}
+.homeImg{
+    width: 650px;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    margin: auto;
+}
+.mainOptions{
+    font-size: 40px;
+    margin: 70px;
+    color: black;
+}
+.mainOptions:hover{
+    color: #707070;
+    text-decoration: none;
+}
+.searchborder{
+    width: 55%;
+    height: 40px;
+    padding-top: 10px;
+    margin: auto;
+    border: 1px #707070 solid;
+    border-radius: 10px;
+    padding: 10px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    position: absolute;
+    z-index: 2;
+    left: 22%;
+    background: white;
+}
+.searchtext{
+    width: 100%;
+    height: 99%;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+}
+.searchtext:focus ~ .searchbtn{
+    color: transparent;
+    z-index: -1;
+}
+.searchbtn{
+    background: none;
+    border:none;
+    border-radius: 10px;
+    outline: none;
+    position: absolute;
+    top: 5%;
+    right: 0%;
+    font-size: 25px;
+}
+.searchbtn:hover{
+    color: #707070;
+}
+/*HomeBot*/
+.aisle{
+    width: 1080px;
+    margin: auto;
+    padding: 5px;
+    border-bottom: 2px solid #cccccc;
+    position: relative;
+}
+.aisleName{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #cccccc;
+}
+.itemCard{
+    display: inline-block;
+    width: 168px;
+    height: 258px;
+    border: 2px solid #cccccc;
+    border-radius: 2px;
+    margin: 10px 20px 20px 20px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.itemCard:hover{
+    border: 2px solid #ff8080;
+    border-radius: 5px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.itemLink, .itemLink:hover{
+    color: black;
+    text-decoration: none;
+}
+.itemImg{
+    width: 130px;
+    height: 130px;
+    border:0;
+    margin: 2px auto;
+    display: block;
+}
+.itemName{
+    margin: auto;
+}
+.itemPrice{
+    font-style: oblique;
+    font-weight: bold;
+    margin: 5px auto;
+    position: absolute;
+    bottom: 45px;
+}
+.addbtn{
+    color: white;
+    font-size: 22.5px;
+    background: #ff5d5d;
+    width: 130.5px;
+    height: 42px;
+    border-left-color: #ff8080;
+    border-top-color: #ff8080;
+    border-right-color: #ff4d4d;
+    border-bottom-color: #ff4d4d;
+    border-radius: 5px;
+    margin: auto;
+    outline: none;
+    position: absolute;
+    bottom: 5px;
+}
+.addbtn:active{
+    border-left-color: #ff4d4d;
+    border-top-color: #ff4d4d;
+    border-right-color: #ff8080;
+    border-bottom-color: #ff8080;
+}
+.seeMoreLink{
+    position: absolute;
+    right: 25px;
+    bottom: 0px;
+    color: black;
+    text-decoration: none;
+}
+.seeMoreLink:hover{
+    color: #cccccc;
+}
+@media only screen and (max-width: 768px){
+    .message{
+        font-size: 15px;
+    }
+    .mainOptions{
+        font-size: 27px;
+        margin: 46px;
+    }
+}
+@media only screen and (max-width: 496px){
+    .message{
+        font-size: 10px;
+    }
+    .mainOptions{
+        font-size: 20px;
+        margin: 23px;
+    }
+}
