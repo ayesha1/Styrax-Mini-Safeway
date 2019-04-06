@@ -122,3 +122,16 @@ function handleLogout() {
     console.log(errorMessage);
   });
 }
+
+var cartRef = firebase.database().ref("cart/");
+
+cartRef.set ({
+   John: {
+      item: apple, orange
+
+   },
+
+   Amanda: {
+      item: apple
+   }
+});
