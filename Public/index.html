@@ -40,7 +40,7 @@
           <h1>Sign Up</h1>
         </div>
         <div class="panel-body">
-          <form name="registration_form" action="" method="POST">
+          <form name="registration_form" method="POST" action="">
             <div class="form-group">
               <label for="reg_email">Email Address</label>
               <input type="email" name="reg_email" id="reg_email" placeholder="example@email.com" class="form-control">
@@ -63,7 +63,7 @@
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
-        console.log(firebase);
+        console.log(firebase.auth());
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
         //
@@ -73,7 +73,8 @@
           } else {
             window.alert("not logged in");
           }
-        })
+          console.log(firebase.auth().currentUser)
+        });
         // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
         // firebase.messaging().requestPermission().then(() => { });
         // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
@@ -88,19 +89,19 @@
           console.error(e);
           // document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
-
-        function registerUser() {
-          let email = document.getElementById("reg_email").value;
-          let password = document.getElementById("reg_password").value;
-
-          console.log(email, password);
-          firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
-            window.alert("success");
-          }).catch(function (error) {
-            window.alert("Registration Unsuccessful");
-          });
-        }
       });
+    </script>
+
+    <script type="text/javascript">
+      function registerUser() {
+        let email = document.getElementById("reg_email").value;
+        let password = document.getElementById("reg_password").value;
+
+        console.log(email, password);
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+          window.alert("Registration Unsuccessful");
+        });
+      }
     </script>
   </body>
 </html>
