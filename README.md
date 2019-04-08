@@ -1,5 +1,5 @@
 # Styrax-Mini-Safeway
-A Mini-Safeway web application for CMPE 133 Class
+A Mini-Safeway web application for CMPE 133 Class which provides online grocery shopping and delivery. 
 
 
 ## Usage
