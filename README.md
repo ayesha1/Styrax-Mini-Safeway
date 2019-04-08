@@ -10,6 +10,7 @@ A Mini-Safeway web application for CMPE 133 Class
 * [Ayesha Khan](https://github.com/ayesha1)
 * [Ryan Hopper-Lowe](https://github.com/rhopperlowe)
 * [Vicson Moses](https://github.com/VicsonMoses)
+* [Thuan Chau](https://github.com/ThuanChau22)
 
 ## Screenshots
 <p float="left">
