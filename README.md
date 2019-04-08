@@ -9,6 +9,7 @@ A Mini-Safeway web application for CMPE 133 Class
 ## Team
 * [Ayesha Khan](https://github.com/ayesha1)
 
+## Screenshots
 <p float="left">
 <img src="https://imgur.com/rHmLx6g.jpg" width=350 hspace="10">
 <img src="https://imgur.com/ixLI0pG.jpg" width=350 hspace="10">
