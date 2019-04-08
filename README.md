@@ -19,5 +19,5 @@ A Mini-Safeway web application for CMPE 133 Class
 <img src="https://imgur.com/lYo64DE.jpg" width=900 hspace="10">
 </p>
 <p float="left">
-<img src="https://imgur.com/dJ3tEeL.jpg" width=900 hspace="20">
+<img src="https://imgur.com/dJ3tEeL.jpg" width=900 hspace="10">
 </p>
