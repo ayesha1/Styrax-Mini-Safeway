@@ -2,6 +2,9 @@
 A Mini-Safeway web application for CMPE 133 Class
 
 #Design For Mini Safeway
+
+**USAGE**
+
 <p float="left">
 <img src="https://imgur.com/rHmLx6g.jpg" width=350 hspace="10">
 <img src="https://imgur.com/ixLI0pG.jpg" width=350 hspace="10">
