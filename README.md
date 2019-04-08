@@ -11,7 +11,7 @@ A Mini-Safeway web application for CMPE 133 Class which provides online grocery 
 * [Vicson Moses](https://github.com/VicsonMoses)
 * [Thuan Chau](https://github.com/ThuanChau22)
 * [George Michael Cuevas](https://github.com/georgegarcia707)
-* Yonatan Greenblum
+* [Yonatan Greenblum](https://github.com/YoniGreenblum)
 * Chanip Chong
 * Xuxiang Huang
 * Sarah Mai
