@@ -12,7 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="WebStyle.css">
+        <link rel="stylesheet" href="./css/WebStyle.css">
     </head>
     <body>
         <div class="main">
@@ -25,13 +25,13 @@ and open the template in the editor.
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="./Home.html"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+                        <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
                     </div>
                     <div class="collapse navbar-collapse" id="myNav">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="./SignIn.html" class="navOpt">Sign In</a></li>
-                            <li><a href="./SignUp.html" class="navOpt">Sign Up</a></li>
-                            <li><a href="./Cart.html" class="navOpt"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                            <li><a href="./SignIn.html" class="navOptions">Sign In</a></li>
+                            <li><a href="./SignUp.html" class="navOptions activeNav">Sign Up</a></li>
+                            <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,10 @@ and open the template in the editor.
                     </div>
                     <div>
                         <label for="state">State</label><br>
-                        <select class="inputbox" id="state" required>
+                        <select class="inputbox" id="state"
+                          onmousedown='if(this.options.length>8){this.size = 8; this.setAttribute("style", "height:auto");}'
+                          onchange='{this.size = 0; this.setAttribute("style", "height:40px");}'
+                          onblur='{this.size = 0; this.setAttribute("style", "height: 40px");}' required>
                             <option value="" style="color: white;">Choose a State</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>

@@ -12,19 +12,32 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/WebStyle.css">
+        <link rel="stylesheet" href="./css/WebStyle.css">
         <script>
-            //scroll function for fixed search bar
+            //scroll function for fixed search bar and Back to Top Button
             window.onscroll = function () {
                 scrollFunction()
             };
             function scrollFunction() {
-                if((document.body.scrollTop+51) > $("#searchbar").position().top || (document.documentElement.scrollTop+51) > $("#searchbar").position().top) {
-                    $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
-                } else {
-                    $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
-                }
+              if(document.documentElement.scrollTop > $("#searchbar").position().top-50
+                || document.body.scrollTop > $("#searchbar").position().top-50) {
+                  $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
+                  $("#backToTop").fadeIn();
+              }
+              if(document.documentElement.scrollTop < $("#searchbar-origin-position").position().top-50
+                || document.body.scrollTop > $("#searchbar-origin-position").position().top-50){
+                  $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
+                  $("#backToTop").fadeOut();
+              }
             }
+
+            //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
+            $(document).ready(function(){
+                $("#backToTop").click(function(e){
+                    e.preventDefault();
+                    $("html, body").animate({scrollTop: 0}, "slow");
+                });
+            });
 
             //Create Aisles with items
             //***demo***
@@ -33,31 +46,23 @@ and open the template in the editor.
             var k = 1;
             $(document).ready(function () {
                 for (var i = 1; i <= aisles; i++) {
-                    $('#Aisles').append($('<div class="aisle">').attr("id", i));        //retrieve aisle name here
-                    $(("#" + i)).append($('<h3 class="aisleName">').text(("Aisle" + i)));   //retrieve aisle name here
+                    $('#Aisles').append($('<div class="aisle">').attr("id", i));                                    //retrieve aisle name i
+                    $(("#" + i)).append($('<h3 class="aisleName">').text(("Aisle" + i)));                           //retrieve aisle name i
                     for (var j = 0; j < itemsinarow; j++, k++) {
-                        $(("#" + i)).append($('<div class="itemCard">').attr("id", ("item" + k))); //retrieve item name here
+                        $(("#" + i)).append($('<div class="itemCard">').attr("id", ("item" + k)));                  //retrieve item name k
                         $(("#" + ("item" + k))).append(
-                                $('<a class="itemLink">').attr({"href": ("link" + k), "id": ("link" + k)}), //link?
-                                $('<h5 class="itemPrice">').text("$1.00"), //retrieve item price here
-                                $('<button class="addbtn" onlick="">').text("Add"));        //need add item function
+                                $('<a class="itemLink">').attr({"href": ("link" + k), "id": ("link" + k)}),         //link to Item k?
+                                $('<h5 class="itemPrice">').text("$01.00"),                                          //retrieve Item Price at "$1.00"
+                                $('<button class="addbtn" onlick="">').text("Add"));                                //add item onclick="addfunction"
                         $(("#" + ("link" + k))).append(
-                                $('<img class="itemImg">').attr("src", "http://placehold.it/500/ffffff/bbb&text=1"), //retrieve item image here
-                                $('<h4 class="itemName">').text(("item" + k))                 //retrieve item name here
+                                $('<img class="itemImg img-responsive">').attr("src", "http://placehold.it/500/ffffff/bbb&text=1"),//retrieve item image here
+                                $('<h4 class="itemName">').text(("item" + k))                                       //retrieve item name k
                                 );
                     }
                     var link = $('<a class="seeMoreLink">');
                     link.text("See More");
-                    $(("#" + i)).append(link.attr("href", ""));                           //link?
+                    $(("#" + i)).append(link.attr("href", ""));                                                     //link to Aisle?
                 }
-
-                $("#btn1").click(function () {
-                    var x = $("#searchbar").position();
-                    alert("Top position: " + x.top);
-                });
-                $("#btn2").click(function () {
-                    alert("Top position: " + document.documentElement.scrollTop);
-                });
             });
         </script>
     </head>
@@ -73,13 +78,13 @@ and open the template in the editor.
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="./Home.html"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+                        <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
                     </div>
                     <div class="collapse navbar-collapse" id="myNav">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="./SignIn.html" class="navOpt">Sign In</a></li>
-                            <li><a href="./SignUp.html" class="navOpt">Sign Up</a></li>
-                            <li><a href="./Cart.html" class="navOpt"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                            <li><a href="./SignIn.html" class="navOptions">Sign In</a></li>
+                            <li><a href="./SignUp.html" class="navOptions">Sign Up</a></li>
+                            <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -88,28 +93,26 @@ and open the template in the editor.
             <!--Home Page-->
             <div class="content">
                 <!--Top-->
-                <div class="hometop container-fluid">
+                <div class="hometop container">
                     <p class="message">Sign In and Receive Online Discounts!</p>
-                    <!--<h4 class="message">You Are Eligible for 10% Discounts!</h4>-->
+                    <!--<p class="message">You Are Eligible for 10% Discounts!</p>-->
                     <img  class="homeImg img-responsive" src="./images/homeStyrax.jpg" alt="Styrax">
-                    <a href="" class="mainOptions">Aisles</a>
-                    <a href="" class="mainOptions">Purchases</a>
+                    <a href="" class="mainOptions" title="Visit Our Aisles">Aisles</a>
+                    <a href="" class="mainOptions" title="Visit Your Previous Orders">Purchases</a>
                     <form>
+                        <div id="searchbar-origin-position"></div>
                         <div id="searchbar" class="searchborder">
                             <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="enter search item...">
                             <button class="searchbtn" onclick="" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
-
                         </div>
                     </form>
                 </div>
-                <button id="btn1">search bar position</button>
-                <button id="btn2">document position</button>
                 <hr>
                 <!--Bottom-->
                 <div id="Aisles" class="container"></div>
             </div>
         </div>
-
+        <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
         <!--Footer-->
         <footer>
             <hr style="margin-bottom: 80px;">
