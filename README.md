@@ -13,7 +13,7 @@ A Mini-Safeway web application for CMPE 133 Class
 * [Thuan Chau](https://github.com/ThuanChau22)
 
 ## Screenshots
-<p float="left">
+
 <img src="https://imgur.com/rHmLx6g.jpg" width=350 hspace="20">
 <img src="https://imgur.com/ixLI0pG.jpg" width=350 hspace="20">
 <img src="https://imgur.com/lYo64DE.jpg" width=350 hspace="20">
