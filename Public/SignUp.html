@@ -5,142 +5,165 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>MiniSafeWay</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./css/WebStyle.css">
-    </head>
-    <body>
-        <div class="main">
-          <!--Header-->
-          <nav class="navbar navbar-fixed-top">
-              <div class="container">
-                  <div class="navbar-header">
-                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                      </button>
-                      <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-                  </div>
-                  <div class="collapse navbar-collapse" id="myNav">
-                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
-                        <li><a href="./SignUp.html" class="navOptions activeNav" id="signUp">Sign Up</a></li>
-                        <li class="userName hidden" id="userName"> Hi,</li>
-                        <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-                          <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Styrax | Sign Up</title>
 
-            <div class="content">
-                <!--Sign Up Form-->
-                <h2 style="text-align: center; height:39.5px; font-size: 34px;">Create an Account</h2>
-                <hr>
-                <form class="SignInUP-container container">
-                    <div>
-                        <label for="reg_name">Your Name</label><br>
-                        <input class="inputbox" type="text" id="reg_name" placeholder="Enter your name" required>
-                    </div>
-                    <div>
-                        <label for="reg_email">Email Address</label><br>
-                        <input class="inputbox" type="email" id="reg_email" placeholder="Enter email address" required>
-                    </div>
-                    <div>
-                        <label for="reg_password">Password</label><br>
-                        <input class="inputbox" type="password" id="reg_password" placeholder="Enter password" required>
-                    </div>
-                    <div>
-                        <label for="password_confirm">Confirm Password</label><br>
-                        <input class="inputbox" type="password" id="password_confirm" placeholder="Re-enter password" required>
-                    </div>
-                    <div>
-                        <label for="address">Address</label><br>
-                        <input class="inputbox" type="text" id="address" placeholder="Enter address" required>
-                    </div>
-                    <div>
-                        <label for="city">City</label><br>
-                        <input class="inputbox" type="text" id="city" placeholder="Enter city" required>
-                    </div>
-                    <div>
-                        <label for="state">State</label><br>
-                        <select class="inputbox" id="state"
-                          onmousedown='if(this.options.length>8){this.size = 8; this.setAttribute("style", "height:auto");}'
-                          onchange='{this.size = 0; this.setAttribute("style", "height:40px");}'
-                          onblur='{this.size = 0; this.setAttribute("style", "height: 40px");}' required>
-                            <option value="" style="color: white;">Choose a State</option>
-                            <option value="AL">Alabama</option>
-                            <option value="AK">Alaska</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="CA">California</option>
-                            <option value="CO">Colorado</option>
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="DC">District Of Columbia</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="ID">Idaho</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IN">Indiana</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NV">Nevada</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="OH">Ohio</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="OR">Oregon</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="TX">Texas</option>
-                            <option value="UT">Utah</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WA">Washington</option>
-                            <option value="WV">West Virginia</option>
-                            <option value="WI">Wisconsin</option>
-                            <option value="WY">Wyoming</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button class="submitbtn" onclick="" type="submit" >Create Account</button>
-                    </div>
-                </form>
-            </div>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./css/WebStyle.css">
+  </head>
+  <body>
+    <div class="main">
+      <!--Header-->
+      <nav class="navbar navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNav">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+              <li><a href="./SignUp.html" class="navOptions activeNav" id="signUp">Sign Up</a></li>
+              <li class="userName hidden" id="userName"> Hi,</li>
+              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+            </ul>
+          </div>
         </div>
+      </nav>
 
-        <!--Footer-->
-        <footer>
-            <hr style="margin-bottom: 80px;">
-            <div class="footer">
-                <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
-            </div>
-        </footer>
-    </body>
+      <div class="content">
+        <!--Sign Up Form-->
+        <h2 style="text-align: center; height:39.5px; font-size: 34px;">Create an Account</h2>
+        <hr>
+        <form class="SignInUP-container container">
+          <div>
+            <label for="reg_name">Your Name</label><br>
+            <input class="inputbox" type="text" id="reg_name" placeholder="Enter your name" required>
+          </div>
+          <div>
+            <label for="reg_email">Email Address</label><br>
+            <input class="inputbox" type="email" id="reg_email" placeholder="Enter email address" required>
+          </div>
+          <div>
+            <label for="reg_password">Password</label><br>
+            <input class="inputbox" type="password" id="reg_password" placeholder="Enter password" required>
+          </div>
+          <div>
+            <label for="password_confirm">Confirm Password</label><br>
+            <input class="inputbox" type="password" id="password_confirm" placeholder="Re-enter password" required>
+          </div>
+          <div>
+            <label for="address">Address</label><br>
+            <input class="inputbox" type="text" id="address" placeholder="Enter address" required>
+          </div>
+          <div>
+            <label for="city">City</label><br>
+            <input class="inputbox" type="text" id="city" placeholder="Enter city" required>
+          </div>
+          <div>
+            <label for="state">State</label><br>
+            <select class="inputbox" id="state"
+            onmousedown='if(this.options.length>8){this.size = 8; this.setAttribute("style", "height:auto");}'
+            onchange='{this.size = 0; this.setAttribute("style", "height:40px");}'
+            onblur='{this.size = 0; this.setAttribute("style", "height: 40px");}' required>
+              <option value="" style="color: white;">Choose a State</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="DC">District Of Columbia</option>
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+            </select>
+          </div>
+          <div>
+            <button class="submitbtn" onclick="registerUser()" id="reg_submit" type="button" >Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!--Footer-->
+    <footer>
+      <hr style="margin-bottom: 80px;">
+      <div class="footer">
+        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      </div>
+    </footer>
+    <script type="text/javascript" src="./js/firebase-auth.js"></script>
+  </body>
 </html>
