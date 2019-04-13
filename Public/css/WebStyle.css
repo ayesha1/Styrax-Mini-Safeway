@@ -31,6 +31,9 @@ body{
     border-radius: 3px;
     flex-shrink: 0;
 }
+.teamLogo{
+    height: 18px;
+}
 
 /*Navbar*/
 div.content{
@@ -45,6 +48,13 @@ div.content{
 }
 .navOptions:hover{
     color: black;
+    cursor: pointer;
+}
+.userName {
+    color: white;
+    font-size: 15px;
+    padding: 15.2px 15px 14px 15px;
+
 }
 .activeNav{
     background: #ff855c;
@@ -59,13 +69,13 @@ button:hover.navbar-toggle{background: #ff8080;}
 .icon-bar{background: white;}
 
 /*SignIn/SignUp*/
-.flex-container{
+.SignInUP-container{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 800px;
 }
-.flex-container > div{
+.SignInUP-container > div{
     margin: 10px auto;
     width: 300px;
 }
@@ -265,7 +275,7 @@ button:hover.navbar-toggle{background: #ff8080;}
     transition: rotate(270deg);
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 25px;
 }
 #backToTop:hover{
     opacity: 1;
@@ -297,7 +307,7 @@ button:hover.navbar-toggle{background: #ff8080;}
   #backToTop{
       font-size: 60px;
       right: 15px;
-      bottom: 25px;
+      bottom: 30px;
   }
 }
 
