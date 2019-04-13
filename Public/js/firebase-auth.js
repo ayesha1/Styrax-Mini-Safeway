@@ -1,5 +1,9 @@
+
 document.addEventListener('DOMContentLoaded', function() {
   console.log(firebase.auth());
+  const db = firebase.firestore();
+  console.log(db);
+
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
   //
@@ -19,12 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   try {
     let app = firebase.app();
-    let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+    let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
     // document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
   } catch (e) {
     console.error(e);
     // document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
   }
+
 });
 
 function handleLogin(){
