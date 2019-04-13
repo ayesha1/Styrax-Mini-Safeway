@@ -3,6 +3,7 @@
   "token": "-JjN--elVZOlJCwqMkr9|f5b7d27e17068dba4d9611b7e4a135ed",
   "projects": {
     "staging": "styrax-mini-safeway",
-    "default": "styrax-mini-safeway"
+    "default": "styrax-mini-safeway",
+    "styrax": "styrax-47f13"
   }
 }
