@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MiniSafeWay</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./css/WebStyle.css">
+        <style>
+            .cart-container{
+                display: flex;
+                flex-flow: row wrap-reverse;
+                max-width: inherit;
+                background: grey;
+                position: relative;
+            }
+            .cartList{
+                margin: 10px 20px;
+                width: 700px;
+            }
+
+            .itemCart{
+                width: 100%;
+                margin: 10px auto 20px auto;
+                padding-left: 15px;
+                padding-right: 15px;
+                display: inline-block;
+                border-bottom: 1.5px solid #cccccc;
+                border-radius: 5px;
+                -webkit-transition: 0.5s;
+                transition: 0.5s;
+                position: relative;
+            }
+            .itemImgCart{
+                width: 100px;
+                border:0;
+                margin: 5px auto;
+                display: inline-block;
+            }
+            .itemPriceCart{
+                font-style: oblique;
+                font-weight: bold;
+                position: absolute;
+                margin: auto;
+                top: 40%;
+                right: 45%;
+            }
+
+            .quantityBox {
+                position: absolute;
+                top: 30%;
+                right: 4%;
+            }
+
+            .quantityBtn {
+                display: inline-block;
+                font-size: 20px;
+                color: white;
+                width: 33px;
+                height: 35px;
+                text-align: center;
+                vertical-align: middle;
+                background: #ff5d5d;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            .quantityBtn:hover {
+                cursor: pointer;
+                background: #ff855c;
+            }
+
+            .quantityBtn:active {
+                border: 1px solid #ff5d5d;
+            }
+
+            .decBtn {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 15px;
+                margin-right: -4px;
+                padding: 3px 0;
+            }
+
+            .incBtn {
+                border-top-right-radius: 15px;
+                border-bottom-right-radius: 5px;
+                margin-left: -4px;
+                padding: 4px 0;
+            }
+
+            .inputQuantity {
+                text-align: center;
+                border: 1px solid #ff5d5d;
+                vertical-align: middle;
+                width: 60px;
+                height: 35px;
+                outline: none;
+            }
+
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            .cartSummary{
+                width: 300px;
+                border: 1px solid #707070;
+                background: #f7f7f7;
+                padding: 10px 20px 20px 20px;
+                position: absolute;
+                top: 90px;
+                right: 100px;
+                /*margin: 10px auto; set when media at 768*/
+            }
+
+            .cartSummaryHeader{
+                text-align: center;
+                font-weight: bolder;
+            }
+
+            .cartSummaryLabel {
+                font-size: 20px;
+                font-weight: bold;
+                line-height: 2;
+            }
+            .cartSummaryPrice {
+                font-size: 20px;
+                text-align: right;
+                font-style: oblique;
+                line-height: 2;
+            }
+
+        </style>
+        <script>
+            //Create list of items in shopping cart
+            //***demo***
+            var number_of_items = 5;
+            $(document).ready(function () {
+                for(var i = 1; i <= number_of_items; i++){
+                    $('#cartList').append($('<div class="itemCart">').attr("id" , ("item"+i)));
+                    $(("#"+ ("item"+i))).append(
+                        $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),
+                        $('<h5 class="itemPriceCart">').text("$01.00"),
+                        $('<form class="quantityBox">').attr("id" , ("form"+i)));
+                    $(("#" + ("link" + i))).append(
+                        $('<img class="itemImgCart img-responsive">').attr(
+                          {"src": "http://placehold.it/500/ffffff/bbb&text=1", "atl": ("item"+i)}),
+                        $('<h4 class="itemName">').text(("item"+i)));
+                    var input = "input" + i;
+                    var decrease = $('<div class="quantityBtn decBtn">');
+                    decrease.attr("onclick", "decreaseValue(" + input + ")");
+                    var increase = $('<div class="quantityBtn incBtn">');
+                    increase.attr("onclick", "increaseValue(" + input + ")");
+                    $(("#" + ("form"+i))).append(
+                        decrease.text("-"),
+                        $('<input class="inputQuantity" type="number">').attr({"id": input, "value": "1"}),
+                        increase.text("+")
+                    );
+                }
+            });
+
+            //scroll function for fixed search bar and Back to Top Button
+            window.onscroll = function () {
+              if(document.documentElement.scrollTop > 200
+                || document.body.scrollTop > 200) {
+                  $("#backToTop").fadeIn();
+              } else{
+                  $("#backToTop").fadeOut();
+                }
+              };
+
+            //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
+            $(document).ready(function(){
+              $("#backToTop").click(function(e){
+                  e.preventDefault();
+                  $("html, body").animate({scrollTop: 0}, "slow");
+              });
+            });
+
+            //increase quantity of an item
+            function increaseValue(e) {
+                var value = e.value;
+                value = isNaN(value) ? 1 : value;
+                value++;
+                e.value = value;
+            }
+            //decrease quantity of an item
+            function decreaseValue(e) {
+                var value = e.value;
+                value = isNaN(value) ? 1 : value;
+                value < 1 ? value = 1 : '';
+                value--;
+                e.value = value;
+            }
+
+        </script>
+    </head>
+    <body>
+        <div class="main">
+          <!--Header-->
+          <nav class="navbar navbar-fixed-top">
+              <div class="container">
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="myNav">
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+                        <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
+                        <li class="userName hidden" id="userName"> Hi,</li>
+                        <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+                          <li><a href="./Cart.html" class="navOptions activeNav"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+
+            <!--Cart Page-->
+            <div class="content">
+                    <div class="cart-container container">
+                        <!--Items in Cart-->
+                        <div class="cartList" id="cartList">
+                            <h2 style="height:39.5px; font-size: 34px;">My Cart</h2>
+                            <hr>
+                            <label class="col-lg-4 col-md-4 col-xs-4" style="border-Bottom: 1px solid black;">Item</label>
+                            <label class="col-lg-4 col-md-4 col-xs-4" style="text-align: center; border-Bottom: 1px solid black;">Price</label>
+                            <label class="col-lg-4 col-md-4 col-xs-4" style="text-align: center; border-Bottom: 1px solid black;">Quantity</label>
+                        </div>
+
+                        <!--Cart Summary-->
+                        <div class="cartSummary" >
+                            <h2 class="cartSummaryHeader">Cart Summary</h2>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Items</div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Discounts</div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">10%</div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Taxes</div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
+                            <div class="col-lg-12 col-md-12 col-xs-12" style="border-bottom: 1px solid #707070;"></div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Total</div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
+                            <button class="submitbtn" type="submit" id="cartCheckout">Check Out</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
+        <!--Footer-->
+        <footer>
+            <hr style="margin-bottom: 80px;">
+            <div class="footer">
+                <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -12,63 +12,68 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="WebStyle.css">
+        <link rel="stylesheet" href="./css/WebStyle.css">
     </head>
     <body>
         <div class="main">
-            <!--Header-->
-            <nav class="navbar navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a href="./Home.html"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="myNav">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="./SignIn.html" class="navOpt">Sign In</a></li>
-                            <li><a href="./SignUp.html" class="navOpt">Sign Up</a></li>
-                            <li><a href="./Cart.html" class="navOpt"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+          <!--Header-->
+          <nav class="navbar navbar-fixed-top">
+              <div class="container">
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="myNav">
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+                        <li><a href="./SignUp.html" class="navOptions activeNav" id="signUp">Sign Up</a></li>
+                        <li class="userName hidden" id="userName"> Hi,</li>
+                        <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+                          <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
 
             <div class="content">
                 <!--Sign Up Form-->
                 <h2 style="text-align: center; height:39.5px; font-size: 34px;">Create an Account</h2>
                 <hr>
-                <form class="flex-container container">
+                <form class="SignInUP-container container">
                     <div>
                         <label for="reg_name">Your Name</label><br>
-                        <input class="inputbox" type="text" id="reg_name" placeholder="enter your name" required>
+                        <input class="inputbox" type="text" id="reg_name" placeholder="Enter your name" required>
                     </div>
                     <div>
                         <label for="reg_email">Email Address</label><br>
-                        <input class="inputbox" type="email" id="reg_email" placeholder="enter email address" required>
+                        <input class="inputbox" type="email" id="reg_email" placeholder="Enter email address" required>
                     </div>
                     <div>
                         <label for="reg_password">Password</label><br>
-                        <input class="inputbox" type="password" id="reg_password" placeholder="enter password" required>
+                        <input class="inputbox" type="password" id="reg_password" placeholder="Enter password" required>
                     </div>
                     <div>
                         <label for="password_confirm">Confirm Password</label><br>
-                        <input class="inputbox" type="password" id="password_confirm" placeholder="re-enter password" required>
+                        <input class="inputbox" type="password" id="password_confirm" placeholder="Re-enter password" required>
                     </div>
                     <div>
                         <label for="address">Address</label><br>
-                        <input class="inputbox" type="text" id="address" placeholder="enter address" required>
+                        <input class="inputbox" type="text" id="address" placeholder="Enter address" required>
                     </div>
                     <div>
                         <label for="city">City</label><br>
-                        <input class="inputbox" type="text" id="city" placeholder="enter city" required>
+                        <input class="inputbox" type="text" id="city" placeholder="Enter city" required>
                     </div>
                     <div>
                         <label for="state">State</label><br>
-                        <select class="inputbox" id="state" required>
+                        <select class="inputbox" id="state"
+                          onmousedown='if(this.options.length>8){this.size = 8; this.setAttribute("style", "height:auto");}'
+                          onchange='{this.size = 0; this.setAttribute("style", "height:40px");}'
+                          onblur='{this.size = 0; this.setAttribute("style", "height: 40px");}' required>
                             <option value="" style="color: white;">Choose a State</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -134,7 +139,7 @@ and open the template in the editor.
         <footer>
             <hr style="margin-bottom: 80px;">
             <div class="footer">
-                <h6>&copy; 2019 SE-133. All rights reserved.</h6>
+                <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
             </div>
         </footer>
     </body>
