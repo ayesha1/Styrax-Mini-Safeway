@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log(firebase.auth());
   const db = firebase.firestore();
   console.log(db);
+    readData();
+
+var productID = '3lUHU7SdbhcDQ3JPRNV3';
+
 
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
@@ -55,6 +59,24 @@ function registerUser() {
     window.alert("Registration Unsuccessful");
   });
 }
+
+function readData(db){
+  var cityRef = db.collection('products').doc('SF');
+var getDoc = cityRef.get()
+  .then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      console.log('Document data:', doc.data());
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  });
+
+
+};
+
 
 function handleLogout() {
 
