@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MiniSafeWay</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./css/WebStyle.css">
+  <script>
+
+    //scroll function for fixed search bar
+    window.onscroll = function () {
+        searchScroll()
+        backToTopScroll()
+    };
+    function searchScroll() {
+      if(document.documentElement.scrollTop > $("#searchbar").position().top-50
+        || document.body.scrollTop > $("#searchbar").position().top-50) {
+          $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
+      }
+      if(document.documentElement.scrollTop < $("#searchbar-origin-position").position().top-50
+        || document.body.scrollTop > $("#searchbar-origin-position").position().top-50){
+          $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
+      }
+    }
+
+    //scroll function for Back to Top Button
+    function backToTopScroll() {
+      if(document.documentElement.scrollTop > 300
+        || document.body.scrollTop > 300) {
+        $("#backToTop").fadeIn();
+      } else{
+        $("#backToTop").fadeOut();
+      }
+    }
+
+    //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
+    $(document).ready(function(){
+      $("#backToTop").click(function(e){
+        e.preventDefault();
+        $("html, body").animate({scrollTop: 0}, "slow");
+      });
+    });
+
+  </script>
+</head>
+<body>
+  <div class="main">
+    <!--Header-->
+    <nav class="navbar navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+            <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
+            <li class="userName hidden" id="userName"></li>
+            <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+            <li><a href="./Cart.html" class="navOptions activeNav"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!--Aisles Page-->
+    <div class="content">
+
+    </div>
+  </div>
+  <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
+  <!--Footer-->
+  <footer>
+    <hr style="margin-bottom: 80px;">
+    <div class="footer">
+      <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+    </div>
+  </footer>
+</body>
+</html>

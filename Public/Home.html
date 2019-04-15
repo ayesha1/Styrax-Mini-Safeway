@@ -35,30 +35,17 @@ and open the template in the editor.
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="./css/WebStyle.css">
+    <script src="./js/webstyle.js"></script>
     <script>
       //scroll function for fixed search bar and Back to Top Button
       window.onscroll = function () {
-        scrollFunction()
+        searchScroll()
+        backToTopScroll()
       };
-      function scrollFunction() {
-        if(document.documentElement.scrollTop > $("#searchbar").position().top-50
-        || document.body.scrollTop > $("#searchbar").position().top-50) {
-          $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
-          $("#backToTop").fadeIn();
-        }
-        if(document.documentElement.scrollTop < $("#searchbar-origin-position").position().top-50
-        || document.body.scrollTop > $("#searchbar-origin-position").position().top-50){
-          $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
-          $("#backToTop").fadeOut();
-        }
-      }
 
       //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
       $(document).ready(function(){
-        $("#backToTop").click(function(e){
-          e.preventDefault();
-          $("html, body").animate({scrollTop: 0}, "slow");
-        });
+        backToTopClick()
       });
 
       //Create Aisles with items
@@ -95,7 +82,7 @@ and open the template in the editor.
     <div class="main">
       <!--Header-->
       <nav class="navbar navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
               <span class="icon-bar"></span>
@@ -121,7 +108,6 @@ and open the template in the editor.
         <!--Top-->
         <div class="hometop container">
           <p class="message" id="guest_message">Sign In and Receive Online Discounts!</p>
-          <!--<p class="message">You Are Eligible for 10% Discounts!</p>-->
           <img  class="homeImg img-responsive" src="./images/homeStyrax.jpg" alt="Styrax">
           <a href="" class="mainOptions" title="Visit Our Aisles">Aisles</a>
           <a href="" class="mainOptions" title="Visit Your Previous Orders">Purchases</a>
