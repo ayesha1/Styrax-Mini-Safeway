@@ -9,6 +9,7 @@ function searchScroll() {
       $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
   }
 }
+
 //scroll function for Back to Top Button
 function backToTopScroll() {
   if(document.documentElement.scrollTop > 300

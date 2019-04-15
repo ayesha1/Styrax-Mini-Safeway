@@ -10,6 +10,14 @@
   <script src="./js/webstyle.js"></script>
   <link rel="stylesheet" href="./css/WebStyle.css">
   <script>
+  //scroll function for Back to Top Button
+  window.onscroll = function() {
+    backToTopScroll()
+  }
+  $(document).ready(function(){
+    backToTopClick()
+  });
+  
   //Create list of items in shopping cart
   //***demo***
   var number_of_items = 10;
@@ -36,13 +44,6 @@
             );
           }
         });
-
-  window.onscroll = function() {
-    backToTopScroll()
-  }
-  $(document).ready(function(){
-    backToTopClick()
-  });
 
   </script>
 </head>
