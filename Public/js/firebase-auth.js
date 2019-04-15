@@ -48,6 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+db.collection("users").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+
+
+
 function handleLogin(){
   let email = document.getElementById("login_email").value;
   let password = document.getElementById("login_password").value;
@@ -63,6 +78,23 @@ function handleLogin(){
   });
 }
 
+// function writeData(db){
+//   db.collection("users").get().then((snapshot) => {
+//     snapshot.docs.forEach(doc => {renderUser(doc)})
+//   })
+//       city:  ,
+//       state: "CA",
+//       country: "USA"
+//   })
+//   .then(function() {
+//       console.log("Document successfully written!");
+//   })
+//   .catch(function(error) {
+//       console.error("Error writing document: ", error);
+//   });
+
+
+//};
 function registerUser() {
   let email = document.getElementById("reg_email").value;
   let password = document.getElementById("reg_password").value;
