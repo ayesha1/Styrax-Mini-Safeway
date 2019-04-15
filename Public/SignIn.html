@@ -5,74 +5,98 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>MiniSafeWay</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./css/WebStyle.css">
-    </head>
-    <body>
-        <div class="main">
-          <!--Header-->
-          <nav class="navbar navbar-fixed-top">
-              <div class="container">
-                  <div class="navbar-header">
-                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                      </button>
-                      <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-                  </div>
-                  <div class="collapse navbar-collapse" id="myNav">
-                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="./SignIn.html" class="navOptions activeNav" id="signIn">Sign In</a></li>
-                        <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
-                        <li class="userName hidden" id="userName"> Hi,</li>
-                        <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-                          <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Styrax | Sign In</title>
 
-            <div class="content">
-                <!--Sign In Form-->
-                <h2 style="text-align: center; height:39.5px; font-size: 34px;">Sign In</h2>
-                <hr>
-                <form class="SignInUP-container container" style="max-width: 350px;">
-                    <div>
-                        <label for="input_email">Email Address</label><br>
-                        <input class="inputbox" type="email" id="input_email" placeholder="Enter email address" required>
-                    </div>
-                    <div>
-                        <label for="input_password">Password</label><br>
-                        <input class="inputbox" type="password" id="input_password" placeholder="Enter password" required>
-                        <a href="#" style="color: black; font-size: 10px; position:relative; left: 200px;">Forgot Password?</a><br>
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="keepSignedIn">Keep me Signed In</label>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="submitbtn" onclick="" type="submit" >Sign In</button>
-                        <div style="font-size: 12px; position: relative; left: 60px; bottom: 12px;">
-                            <i>Don't Have an Account?</i>
-                            <a href="./SignUp.html" style="color: black;" ><b>Sign Up</b></a>
-                        </div>
-                    </div>
-                </form>
-            </div>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./css/WebStyle.css">
+  </head>
+  <body>
+    <div class="main">
+      <!--Header-->
+      <nav class="navbar navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNav">
+            <ul class="nav navbar-nav navbar-right">
+              <!-- <li><a href="./SignIn.html" class="navOptions activeNav" id="signIn">Sign In</a></li> -->
+              <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
+              <li class="userName hidden" id="userName"> Hi,</li>
+              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+            </ul>
+          </div>
         </div>
+      </nav>
 
-        <!--Footer-->
-        <footer>
-            <hr style="margin-bottom: 80px;">
-            <div class="footer">
-                <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      <div class="content">
+        <!--Sign In Form-->
+        <h2 style="text-align: center; height:39.5px; font-size: 34px;">Sign In</h2>
+        <hr>
+        <form class="SignInUP-container container" style="max-width: 350px;">
+          <div>
+            <label for="input_email">Email Address</label><br>
+            <input class="inputbox" type="email" id="login_email" placeholder="Enter email address" required>
+          </div>
+          <div>
+            <label for="input_password">Password</label><br>
+            <input class="inputbox" type="password" id="login_password" placeholder="Enter password" required>
+            <a href="#" style="color: black; font-size: 10px; position:relative; left: 200px;">Forgot Password?</a><br>
+            <div class="checkbox">
+              <label><input type="checkbox" id="keepSignedIn">Keep me Signed In</label>
             </div>
-        </footer>
-    </body>
+          </div>
+          <div>
+            <button class="submitbtn" onclick="handleLogin()" type="button">Sign In</button>
+            <div style="font-size: 12px; position: relative; left: 60px; bottom: 12px;">
+              <i>Don't Have an Account?</i>
+              <a href="./SignUp.html" style="color: black;" ><b>Sign Up</b></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!--Footer-->
+    <footer>
+      <hr style="margin-bottom: 80px;">
+      <div class="footer">
+        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="./js/firebase-auth.js"></script>
+  </body>
 </html>

@@ -5,122 +5,148 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>MiniSafeWay</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./css/WebStyle.css">
-        <script>
-            //scroll function for fixed search bar and Back to Top Button
-            window.onscroll = function () {
-                scrollFunction()
-            };
-            function scrollFunction() {
-              if(document.documentElement.scrollTop > $("#searchbar").position().top-50
-                || document.body.scrollTop > $("#searchbar").position().top-50) {
-                  $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
-                  $("#backToTop").fadeIn();
-              }
-              if(document.documentElement.scrollTop < $("#searchbar-origin-position").position().top-50
-                || document.body.scrollTop > $("#searchbar-origin-position").position().top-50){
-                  $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
-                  $("#backToTop").fadeOut();
-              }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Styrax | Home</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./css/WebStyle.css">
+    <script>
+      //scroll function for fixed search bar and Back to Top Button
+      window.onscroll = function () {
+        scrollFunction()
+      };
+      function scrollFunction() {
+        if(document.documentElement.scrollTop > $("#searchbar").position().top-50
+        || document.body.scrollTop > $("#searchbar").position().top-50) {
+          $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
+          $("#backToTop").fadeIn();
+        }
+        if(document.documentElement.scrollTop < $("#searchbar-origin-position").position().top-50
+        || document.body.scrollTop > $("#searchbar-origin-position").position().top-50){
+          $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
+          $("#backToTop").fadeOut();
+        }
+      }
+
+      //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
+      $(document).ready(function(){
+        $("#backToTop").click(function(e){
+          e.preventDefault();
+          $("html, body").animate({scrollTop: 0}, "slow");
+        });
+      });
+
+      //Create Aisles with items
+      //***demo***
+      var aisles = 4;
+      var items_in_1_row = 5;
+      var k = 1;
+      $(document).ready(function () {
+        for (var i = 1; i <= aisles; i++) {
+          $('#Aisles').append($('<div class="aisle">').attr("id", i));                                    //retrieve aisle name i
+          $(("#" + i)).append($('<h3 class="aisleName">').text(("Aisle" + i)));                           //retrieve aisle name i
+          for (var j = 0; j < items_in_1_row; j++, k++) {
+            $(("#" + i)).append($('<div class="itemCard">').attr("id", ("item" + k)));                  //retrieve item name k
+            $(("#" + ("item" + k))).append(
+              $('<a class="itemLink">').attr({"href": ("link" + k), "id": ("link" + k)}),         //link to Item k?
+              $('<h5 class="itemPrice">').text("$01.00"),                                          //retrieve Item Price at "$1.00"
+              $('<button class="addbtn" onlick="">').text("Add")
+            );                                //add item onclick="addfunction"
+            $(("#" + ("link" + k))).append(
+              $('<img class="itemImg img-responsive">').attr(
+                {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+k)}),        //retrieve item image here
+                $('<h4 class="itemName">').text(("item" + k))
+              );                                     //retrieve item name k
             }
+            var link = $('<a class="seeMoreLink">');
+            link.text("See More");
+            $(("#" + i)).append(link.attr("href", ""));                                                     //link to Aisle?
+          }
+      });
+    </script>
+  </head>
 
-            //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
-            $(document).ready(function(){
-                $("#backToTop").click(function(e){
-                    e.preventDefault();
-                    $("html, body").animate({scrollTop: 0}, "slow");
-                });
-            });
-
-            //Create Aisles with items
-            //***demo***
-            var aisles = 4;
-            var items_in_1_row = 5;
-            var k = 1;
-            $(document).ready(function () {
-                for (var i = 1; i <= aisles; i++) {
-                    $('#Aisles').append($('<div class="aisle">').attr("id", i));                                    //retrieve aisle name i
-                    $(("#" + i)).append($('<h3 class="aisleName">').text(("Aisle" + i)));                           //retrieve aisle name i
-                    for (var j = 0; j < items_in_1_row; j++, k++) {
-                        $(("#" + i)).append($('<div class="itemCard">').attr("id", ("item" + k)));                  //retrieve item name k
-                        $(("#" + ("item" + k))).append(
-                                $('<a class="itemLink">').attr({"href": ("link" + k), "id": ("link" + k)}),         //link to Item k?
-                                $('<h5 class="itemPrice">').text("$01.00"),                                          //retrieve Item Price at "$1.00"
-                                $('<button class="addbtn" onlick="">').text("Add"));                                //add item onclick="addfunction"
-                        $(("#" + ("link" + k))).append(
-                                $('<img class="itemImg img-responsive">').attr(
-                                  {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+k)}),        //retrieve item image here
-                                $('<h4 class="itemName">').text(("item" + k)));                                     //retrieve item name k
-                    }
-                    var link = $('<a class="seeMoreLink">');
-                    link.text("See More");
-                    $(("#" + i)).append(link.attr("href", ""));                                                     //link to Aisle?
-                }
-            });
-        </script>
-    </head>
-
-    <body>
-        <div class="main">
-            <!--Header-->
-            <nav class="navbar navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="myNav">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
-                            <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
-                            <li class="userName hidden" id="userName"> Hi,</li>
-                            <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-                            <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <!--Home Page-->
-            <div class="content">
-                <!--Top-->
-                <div class="hometop container">
-                    <p class="message">Sign In and Receive Online Discounts!</p>
-                    <!--<p class="message">You Are Eligible for 10% Discounts!</p>-->
-                    <img  class="homeImg img-responsive" src="./images/homeStyrax.jpg" alt="Styrax">
-                    <a href="" class="mainOptions" title="Visit Our Aisles">Aisles</a>
-                    <a href="" class="mainOptions" title="Visit Your Previous Orders">Purchases</a>
-                    <form>
-                        <div id="searchbar-origin-position"></div>
-                        <div id="searchbar" class="searchborder">
-                            <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="Enter search item...">
-                            <button class="searchbtn" onclick="" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </form>
-                </div>
-                <hr>
-                <!--Bottom-->
-                <div id="Aisles" class="container"></div>
-            </div>
+  <body>
+    <div class="main">
+      <!--Header-->
+      <nav class="navbar navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNav">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+              <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
+              <li class="userName hidden" id="userName"></li>
+              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+            </ul>
+          </div>
         </div>
-        <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
-        <!--Footer-->
-        <footer>
-            <hr style="margin-bottom: 80px;">
-            <div class="footer">
-                <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      </nav>
+
+      <!--Home Page-->
+      <div class="content">
+        <!--Top-->
+        <div class="hometop container">
+          <p class="message" id="guest_message">Sign In and Receive Online Discounts!</p>
+          <!--<p class="message">You Are Eligible for 10% Discounts!</p>-->
+          <img  class="homeImg img-responsive" src="./images/homeStyrax.jpg" alt="Styrax">
+          <a href="" class="mainOptions" title="Visit Our Aisles">Aisles</a>
+          <a href="" class="mainOptions" title="Visit Your Previous Orders">Purchases</a>
+          <form>
+            <div id="searchbar-origin-position"></div>
+            <div id="searchbar" class="searchborder">
+              <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="Enter search item...">
+              <button class="searchbtn" onclick="" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
             </div>
-        </footer>
-    </body>
+          </form>
+        </div>
+        <hr>
+        <!--Bottom-->
+        <div id="Aisles" class="container"></div>
+      </div>
+    </div>
+    <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
+    <!--Footer-->
+    <footer>
+      <hr style="margin-bottom: 80px;">
+      <div class="footer">
+        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="./js/firebase-auth.js"></script>
+  </body>
 </html>

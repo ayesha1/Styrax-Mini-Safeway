@@ -1,13 +1,33 @@
+
 document.addEventListener('DOMContentLoaded', function() {
   console.log(firebase.auth());
+  const db = firebase.firestore();
+  console.log(db);
+
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
   //
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      window.alert(user);
+      // window.alert(user);
+      document.getElementById("signIn").classList.add("hidden");
+      document.getElementById("signUp").classList.add("hidden");
+      document.getElementById("logOut").classList.remove("hidden");
+      if (window.location.href.includes("Home.html")) {
+        document.getElementById("userName").classList.remove("hidden");
+        document.getElementById("userName").innerHTML = "Hi!";
+        document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
+      }
+
     } else {
-      window.alert("not logged in");
+      // window.alert("not logged in");
+      document.getElementById("logOut").classList.add("hidden");
+      document.getElementById("signIn").classList.remove("hidden");
+      document.getElementById("signUp").classList.remove("hidden");
+      if (window.location.href.includes("Home.html")) {
+        document.getElementById("userName").classList.add("hidden");
+        document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
+      }
     }
     console.log(firebase.auth().currentUser)
   });
@@ -19,12 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   try {
     let app = firebase.app();
-    let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+    let features = ['auth', 'database', 'messaging', 'storage', 'firestore'].filter(feature => typeof app[feature] === 'function');
     // document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
   } catch (e) {
     console.error(e);
     // document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
   }
+
 });
 
 function handleLogin(){
@@ -32,7 +53,8 @@ function handleLogin(){
   let password = document.getElementById("login_password").value;
 
   firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-    window.alert("Login success");
+    // window.alert("Login success");
+    window.location.href = "./Home.html";
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -46,7 +68,10 @@ function registerUser() {
   let password = document.getElementById("reg_password").value;
 
   console.log(email, password);
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
+    window.location.href = "./Home.html";
+  })
+  .catch(function (error) {
     window.alert("Registration Unsuccessful");
   });
 }
@@ -54,7 +79,7 @@ function registerUser() {
 function handleLogout() {
 
   firebase.auth().signOut().then(function() {
-    window.alert("logout success");
+    // window.alert("logout success");
   }).catch(function(error) {
     window.alert("logout Unsuccessful");
   });
