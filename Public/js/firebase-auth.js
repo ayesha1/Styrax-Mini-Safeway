@@ -84,3 +84,8 @@ function handleLogout() {
     window.alert("logout Unsuccessful");
   });
 }
+
+function handleCheckout() {
+
+    window.location.href ="./PaymentPage.html";
+}
