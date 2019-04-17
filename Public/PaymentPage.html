@@ -79,8 +79,8 @@
             </div>
 
             <div class="creditcardInfo-container" style="Width: 120px; display: inline-block; margin-right: 22px;">
-              <label for="expDate" class="creditcardInfo-label">Expiry Date</label><br>
-              <input class="inputbox" type="" id="expDate" placeholder="MM/YY" required>
+              <label for="cardExpiry" class="creditcardInfo-label">Expiry Date</label><br>
+              <input class="inputbox" type="" id="cardExpiry" placeholder="MM/YY" required>
             </div>
 
             <div class="creditcardInfo-container" style="Width: 120px; display: inline-block; margin-left: 22px;">
@@ -107,7 +107,7 @@
             <div class="col-lg-12 col-md-12 col-xs-12" style="border-bottom: 1px solid #707070;"></div>
             <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Total</div>
             <div id="totalPrice" class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
-            <button id="cartCheckout" class="submitbtn" type="submit" onclick="">SUBMIT</button>
+            <button id="cartCheckout" class="submitbtn" type="submit" onclick="completeCheckout()">SUBMIT</button>
           </div>
         </div>
 
@@ -144,6 +144,13 @@
 
   // Create an instance of Elements.
   var elements = stripe.elements();
+
+  var cardNumber = elements.create('cardNumber');
+cardNumber.mount('#card-number');
+var cardExpiry = elements.create('cardExpiry');
+cardExpiry.mount('#card-expiry');
+var cardCvc = elements.create('cardCvc');
+cardCvc.mount('#card-cvc');
 
   // Custom styling can be passed to options when creating an Element.
   // (Note that this demo uses a wider set of styles than the guide below.)

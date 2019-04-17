@@ -89,3 +89,8 @@ function handleCheckout() {
 
     window.location.href ="./PaymentPage.html";
 }
+
+function completeCheckout() {
+
+
+}
