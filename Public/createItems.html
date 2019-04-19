@@ -32,6 +32,10 @@
 
     <!-- <script type="text/javascript" src="./js/firebase-auth.js"></script> -->
 
+    <!-- Croppie -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css">
+    <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
+
   </head>
   <body>
 
@@ -83,7 +87,14 @@
             </div>
             <div class="input-group">
               <label for="item_image">Upload an image</label>
-              <input type="file" class="custom-file-input" name="item_image" id="item_image">
+              <input type="file" class="custom-file-input" name="item_image" onchange="cropImage()" id="item_image">
+              <div style="height: 300px; width: 300px;">
+                <img src="" alt="" width="200" height="200" id="item_cropper">
+              </div>
+              <button type="button" name="button" id="crop_result">Crop</button>
+
+              <img src="" alt="" id="cropped_image">
+              <!-- <div id="item_image_cropper"></div> -->
                 <!-- <label class="custom-file-label" for="item_image">Choose file</label> -->
             </div>
           </form>

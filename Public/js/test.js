@@ -77,6 +77,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+function cropImage() {
+  let file = $('#item_image').get(0).files[0];
+  let uncropped_image = URL.createObjectURL(file);
+
+  $('#item_cropper').get(0).src = uncropped_image;
+  console.log(document.getElementById("item_cropper").src);
+
+  var cropper = new Croppie(document.getElementById("item_cropper"), {
+    viewport: {
+      height: 200,
+      width: 200
+    },
+    enforceBoundary: false
+  });
+
+  $('#crop_result').on('click', function (event) {
+    cropper.result({
+      type: "blob",
+      format: "jpeg"
+    }).then(function(blob) {
+      let cropped_image = URL.createObjectURL(blob);
+      blob.lastModifiedDate = new Date();
+      blob.name = file.name;
+      console.log(blob);
+      console.log(cropped_image);
+      $('#cropped_image').get(0).src = cropped_image;
+    });
+  })
+}
+
 function addItemToFirestore() {
   let newItem = {
     name: document.getElementById("item_name").value,
@@ -87,11 +117,11 @@ function addItemToFirestore() {
     image: ""
   };
 
-  var file = $('#item_image').get(0).files[0];
+  let file = $('#item_image').get(0).files[0];
   console.log(newItem, file);
 
   let imageMetaData = {
-    contentType: file.type,
+    contentType: file.type
   }
 
   var task = firebase.storage().ref().child("images/" + newItem.name + "_" + file.name).put(file, imageMetaData)
