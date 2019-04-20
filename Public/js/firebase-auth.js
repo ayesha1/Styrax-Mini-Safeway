@@ -1,8 +1,19 @@
 
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+  apiKey: '### FIREBASE API KEY ###',
+  authDomain: '### FIREBASE AUTH DOMAIN ###',
+  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+});
+
+var db = firebase.firestore();
+
 document.addEventListener('DOMContentLoaded', function() {
   console.log(firebase.auth());
   const db = firebase.firestore();
   console.log(db);
+
+
 
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
@@ -83,4 +94,25 @@ function handleLogout() {
   }).catch(function(error) {
     window.alert("logout Unsuccessful");
   });
+}
+
+//Read Data
+function readData() {
+  var usersCollectionRef = db.collection("products"); //Creates a reference to the Users collection
+
+var query = usersCollectionRef.where("name", "==", "apple"); //Creates a query based on the collection
+
+query.get().then(function(querySnapshot) { //Call get() to get a QuerySnapshot
+
+            if (querySnapshot.empty) { //Check whether there are any documents in the result
+                console.log('no documents found');
+            } else {
+                    querySnapshot.docs.map(function (documentSnapshot) {
+                        //Not necessary to do that  -> return documentSnapshot.data();
+                        console.log(documentSnapshot.data().name);
+                    });
+            }
+
+});
+
 }

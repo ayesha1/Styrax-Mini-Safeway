@@ -66,33 +66,21 @@
       <div class="content">
         <div class="payment-container container">
           <!--credit card info-->
-          <form class="creditcardInfo">
+          <form class="creditcardInfo"  id="payment-form">
             <h2 style="height:39.5px; font-size: 34px; font-weight: bold;">Payment details</h2>
             <p style="color: #707070; position: relative; bottom: 10px; ">Enter your credit card details.</p>
-            <div class="creditcardInfo-container">
-              <label for="cardName" class="creditcardInfo-label">Cardholder Name</label><br>
+            <div class="" id="name">
+              <label for="cardName" class="">Cardholder Name</label><br>
               <input class="inputbox" type="" id="cardName" placeholder="Enter cardholder name" required>
             </div>
-            <div class="creditcardInfo-container">
+            <div class="creditcardInfo-container" id ="card-element">
               <label for="cardNumber" class="creditcardInfo-label">Card Number</label><br>
               <input class="inputbox" type="" id="cardNumber" placeholder="Enter card number" required>
             </div>
 
-            <div class="creditcardInfo-container" style="Width: 120px; display: inline-block; margin-right: 22px;">
-              <label for="expDate" class="creditcardInfo-label">Expiry Date</label><br>
-              <input class="inputbox" type="" id="expDate" placeholder="MM/YY" required>
-            </div>
+            <div id="card-errors" role="alert"></div>
 
-            <div class="creditcardInfo-container" style="Width: 120px; display: inline-block; margin-left: 22px;">
-              <label for="cvv" class="creditcardInfo-label">CVV</label><br>
-              <input class="inputbox" type="" id="cvv" placeholder="CVV" required>
-            </div>
 
-            <div class="creditcardInfo-container">
-              <div class="checkbox">
-                <label><input type="checkbox" id="savedCard">Save this card for future payments?</label>
-              </div>
-            </div>
           </form>
 
           <!--Cart Summary-->
@@ -110,23 +98,6 @@
             <button id="cartCheckout" class="submitbtn" type="submit" onclick="">SUBMIT</button>
           </div>
         </div>
-
-        <!--Stripe Layout-->
-        <form action="/charge" method="post" id="payment-form">
-          <div class="form-row">
-            <label for="card-element">
-              Credit or debit card
-            </label>
-            <div id="card-element">
-              <!-- A Stripe Element will be inserted here. -->
-            </div>
-
-            <!-- Used to display form errors. -->
-            <div id="card-errors" role="alert"></div>
-          </div>
-        </form>
-        <!--Stripe Layout-->
-
       </div>
   </div>
 
