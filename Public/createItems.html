@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <!-- <script type="text/javascript" src="./js/firebase-auth.js"></script> -->
+
+    <!-- Croppie -->
+    <link rel="stylesheet" href="./css/croppie.css">
+    <script type="text/javascript" src="./js/croppie.js"></script>
+
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1>Login</h1>
+        </div>
+        <div class="panel-body">
+          <form name="registration_form" method="POST" action="">
+            <div class="form-group">
+              <label for="login_email">Email Address</label>
+              <input type="email" name="login_email" id="login_email" placeholder="example@email.com" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="login_password">Password</label>
+              <input type="password" name="login_password" id="login_password" placeholder="password" class="form-control">
+            </div>
+            <div class="form-group">
+              <button onclick="handleLogin()" type="button" id="signIn" class="btn btn-primary">Submit</button>
+              <!-- <button type="button" name="reg_cancel" class="btn btn-secondary">Cancel</button> -->
+              <button onclick="handleLogout()" type="button" id="logOut" class="btn btn-info">logout</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1>Create Items!</h1>
+        </div>
+        <div class="panel-body">
+          <form name="contentCreator" id="item_form">
+            <div class="form-group">
+              <label for="item_name">Name</label>
+              <input type="text" name="item_name" id="item_name" placeholder="ex: Apple" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="item_price">Price (Dollars)</label>
+              <input type="number" name="item_price" id="item_price" placeholder="ex: 1.00" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="item_stock">Stock</label>
+              <input type="number" name="item_stock" id="item_stock" placeholder="ex: 12" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="item_aisle">Aisle</label>
+              <input type="text" name="item_aisle" id="item_aisle" placeholder="ex: produce" class="form-control" required>
+            </div>
+            <div class="input-group">
+              <label for="item_image">Upload an image</label>
+              <input type="file" class="custom-file-input" name="item_image" onchange="cropImage()" id="item_image" required>
+              <img src="" alt="" id="cropped_image" width="300" height="300" style="border: 2px solid black;" class="hidden">
+
+              <div style="height: 300px; width: 300px;" class="hidden" id="item_cropper">
+                <!-- <img src="" alt="" width="200" height="200" id="item_cropper"> -->
+              </div>
+              <button type="button" name="button" id="crop_result" class="btn btn-primary btn-small hidden">Crop</button>
+              <!-- <div id="item_image_cropper"></div> -->
+                <!-- <label class="custom-file-label" for="item_image">Choose file</label> -->
+            </div>
+          </form>
+        </div>
+        <div class="panel-footer">
+          <div class="form-group">
+            <button type="button" onclick="addItemToFirestore()" class="btn btn-primary" id="item_submit">Submit</button>
+            <a href="" type="button" name="button" class="btn btn-secondary">Cancel</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1>Items</h1>
+        </div>
+        <div class="panel-body">
+          <h2 id="name1">[name]</h2>
+          <p>
+            Aisle: <span id="aisle1"></span><br>
+            Price: <span id="price1"></span><br>
+            Stock: <span id="stock1"></span><br>
+          </p>
+          <img id="img1" src alt="" width="100" height="100">
+        </div>
+      </div>
+
+    <script type="text/javascript" src="./js/test.js"></script>
+
+  </body>
+</html>
