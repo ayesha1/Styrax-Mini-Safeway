@@ -1,3 +1,60 @@
+window.onload = function() {
+  activeMainOpt()
+};
+
+window.onscroll = function () {
+  if($('#searchbar').length > 0){
+    searchScroll()
+  }
+  backToTopScroll()
+};
+
+$(document).ready(function(){
+  MainOptHover()
+  backToTopClick()
+});
+
+//Change Heading Style for Main Options (Aisles/My Purchases)
+function activeMainOpt(){
+  var elt;
+  if(window.location.href.includes("MyPurchases.html")){
+    elt = $('#MyPurchasesOpt');
+  }else{
+    elt = $('#AislesOpt');
+  }
+  if(window.location.href.includes("Aisles.html")){
+    elt.removeAttr("href");
+    elt.css("cursor","default");
+  }
+  elt.removeClass("mainOptions");
+  elt.addClass("AisleHeading");
+}
+
+//Change Heading Style for Main Options when hover (Aisles/My Purchases)
+function MainOptHover(){
+  var elt1;
+  var elt2;
+  if(window.location.href.includes("MyPurchases.html")){
+    elt1 = $('#MyPurchasesOpt');
+    elt2 = $('#AislesOpt');
+  }else{
+    elt1 = $('#AislesOpt');
+    elt2 = $('#MyPurchasesOpt');
+  }
+  elt2.mouseover( function(){
+    elt1.attr("href","./Aisles.html");
+    elt1.addClass("mainOptions");
+    elt1.removeClass("AisleHeading");
+  });
+  elt2.mouseout( function(){
+    if(window.location.href.includes("Aisles.html")){
+      elt1.removeAttr("href");
+    }
+    elt1.removeClass("mainOptions");
+    elt1.addClass("AisleHeading");
+  });
+}
+
 //scroll function for fixed search bar
 function searchScroll() {
   if(document.documentElement.scrollTop > $("#searchbar").position().top-50
