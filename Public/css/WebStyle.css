@@ -42,11 +42,11 @@ div.content{
 .navLogo{
     width: 200px;
 }
-.navOptions{
+.navOptions, .navOptions:visited{
     color: white;
     font-size: 15px;
 }
-.navOptions:hover{
+.navOptions:hover, .navOptions:active{
     color: black;
     cursor: pointer;
 }
@@ -66,7 +66,30 @@ nav.navbar{
 }
 button.navbar-toggle{border: white solid 1px;}
 button:hover.navbar-toggle{background: #ff8080;}
-.icon-bar{background: white;}
+.icon-bar{background: white;
+}
+.nav{
+  padding-right: 30px;
+}
+
+/*Back To Top*/
+#backToTop{
+    font-size: 80px;
+    color: #ff855c;
+    text-align: center;
+    text-decoration: none;
+    opacity: 0.5;
+    z-index: 2;
+    display: none;
+    -webkit-transform: rotate(270deg);
+    transition: rotate(270deg);
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+}
+#backToTop:hover{
+    opacity: 1;
+}
 
 /*SignIn/SignUp*/
 .SignInUP-container{
@@ -108,7 +131,7 @@ button:hover.navbar-toggle{background: #ff8080;}
 }
 .submitbtn:hover{
     border-radius: 10px;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 0px 16px 0 rgba(0,0,0,0.24),0 0px 50px 0 rgba(0,0,0,0.19);
 }
 
 /*Home*/
@@ -127,14 +150,32 @@ button:hover.navbar-toggle{background: #ff8080;}
     border-right: 70px solid transparent;
     margin: auto;
 }
-.mainOptions{
+.mainOptions:link, .mainOptions:visited{
     font-size: 40px;
-    margin: 70px;
+    padding: 0px 70px;
     color: black;
-
+    text-decoration: none;
+    border: 2px solid white;
+    border-radius: 10px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
 }
 .mainOptions:hover{
-    color: #707070;
+    color: #800000;
+    text-decoration: none;
+    border: 2px solid #ff5d5d;
+    border-radius: 20px;
+}
+.AisleHeading{
+    font-size: 40px;
+    padding: 0px 70px;
+    color: #800000;
+    text-decoration: none;
+    border: 2px solid #ff5d5d;
+    border-radius: 20px;
+}
+.AisleHeading:hover{
+    color: #800000;
     text-decoration: none;
 }
 .searchborder{
@@ -193,7 +234,7 @@ button:hover.navbar-toggle{background: #ff8080;}
     border-bottom: 1px solid #cccccc;
 }
 .itemCard{
-    width: 16%;
+    width: 180.8px;
     height: 258px;
     margin: 10px 20px 20px 20px;
     padding-left: 15px;
@@ -201,24 +242,22 @@ button:hover.navbar-toggle{background: #ff8080;}
     display: inline-block;
     border: 2px solid #cccccc;
     border-radius: 2px;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
     position: relative;
 }
 .itemCard:hover{
     border: 2px solid #ff8080;
     border-radius: 5px;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 0px 16px 0 rgba(0,0,0,0.24),0 0px 50px 0 rgba(0,0,0,0.19);
 }
-.itemLink, .itemLink:hover{
+.itemLink:link, .itemLink:hover, .itemLink:visited{
     color: black;
     text-decoration: none;
 }
 .itemImg{
-    width: 146.8px;
     border:0;
     margin: 2px auto;
-    display: block;
 }
 .itemName{
     margin: auto;
@@ -252,7 +291,7 @@ button:hover.navbar-toggle{background: #ff8080;}
     border-right-color: #ff8080;
     border-bottom-color: #ff8080;
 }
-.seeMoreLink{
+.seeMoreLink:link, .seeMoreLink:visited{
     position: absolute;
     right: 25px;
     bottom: 0px;
@@ -262,24 +301,7 @@ button:hover.navbar-toggle{background: #ff8080;}
 .seeMoreLink:hover{
     color: #cccccc;
 }
-/*Back To Top*/
-#backToTop{
-    font-size: 80px;
-    color: #ff855c;
-    text-align: center;
-    text-decoration: none;
-    opacity: 0.5;
-    z-index: 2;
-    display: none;
-    -webkit-transform: rotate(270deg);
-    transition: rotate(270deg);
-    position: fixed;
-    right: 20px;
-    bottom: 25px;
-}
-#backToTop:hover{
-    opacity: 1;
-}
+
 /*CartPage*/
 .cart-container{
     display: flex;
@@ -299,8 +321,8 @@ button:hover.navbar-toggle{background: #ff8080;}
     display: inline-block;
     border-bottom: 1.5px solid #cccccc;
     border-radius: 5px;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
     position: relative;
 }
 .itemImgCart{
@@ -420,11 +442,60 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 10px 20px 20px 20px;
     margin: 10px auto;
 }
+/*Aisles Page*/
+.aisles-container {
+  display: flex;
+  flex-flow: wrap;
+  max-width: inherit;
+  justify-content: center;
+  position: relative;
+}
+.aisleCard {
+  width: 250px;
+  border: 2px solid #cccccc;
+  border-radius: 2px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  margin: 10px 40px 40px;
+  padding: 0px 15px;
+  position: relative;
+}
+.aisleCard:hover {
+  border: 2px solid #ff8080;
+  border-radius: 5px;
+  box-shadow: 0 0px 16px 0 rgba(0,0,0,0.24),0 0px 50px 0 rgba(0,0,0,0.19);
+}
+.aisleCard div {
+  width: auto;
+  height: 55px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+/*ItemsList Page*/
+.items-container{
+  display: flex;
+  flex-flow: wrap;
+  max-width: inherit;
+  justify-content: center;
+  position: relative;
+  border-left: 1px solid #707070;
+}
 
 /*Devices with screen smaller than or equal to 1200px*/
 @media only screen and (max-width: 1200px){
-  /*Bot-HomePage*/
+  /*Back To Top*/
+  #backToTop{
+      font-size: 60px;
+      right: 15px;
+      bottom: 30px;
+  }
+
+  /*HomeBot*/
   .itemCard{
+      width: 148.8px;
       height: 206px;
       margin: 8px 16px 16px 16px;
       padding-left: 12px;
@@ -444,11 +515,8 @@ input[type=number]::-webkit-outer-spin-button {
       height: 33px;
       bottom: 4px;
   }
-  #backToTop{
-      font-size: 60px;
-      right: 15px;
-      bottom: 30px;
-  }
+
+  /*CartPage*/
   .cartList{
       width: 500px;
   }
@@ -463,13 +531,22 @@ input[type=number]::-webkit-outer-spin-button {
 
 /*Devices with screen smaller than or equal to 992px*/
 @media only screen and (max-width: 992px){
+  /*Back To Top*/
+  #backToTop{
+      right: 5px;
+  }
+
   /*Top-HomePage*/
   .message {
       font-size: 22.5px;
   }
-  .mainOptions{
+  .mainOptions:link{
       font-size: 30px;
-      margin: 52.5px;
+      padding: 0px 52.5px;
+  }
+  .AisleHeading{
+      font-size: 30px;
+      padding: 0px 52.5px;
   }
   .searchborder{
       height: 30px;
@@ -478,11 +555,12 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 18.75px;
   }
 
-  /*Bot-HomePage*/
+  /*HomeBot*/
   .aisleName{
         font-size: 18px;
   }
   .itemCard{
+      width: 113.6px;
       height: 165.12px;
       margin: 6.4px 12.8px 12.8px 12.8px;
       padding-left: 9.6px;
@@ -508,9 +586,8 @@ input[type=number]::-webkit-outer-spin-button {
   .seeMoreLink{
       font-size: 10.5px;
   }
-  #backToTop{
-      right: 5px;
-  }
+
+  /*CartPage*/
   .cart-container{
       justify-content: center;
   }
@@ -521,7 +598,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 /*Devices with screen smaller than or equal to 768px*/
 @media only screen and (max-width: 768px){
-  /*Bot-HomePage*/
+  /*Back To Top*/
+  #backToTop{
+      right: 0px;
+  }
+
+  /*HomeBot*/
   .itemCard{
       width: 95%;
       height: auto;
@@ -546,8 +628,21 @@ input[type=number]::-webkit-outer-spin-button {
       bottom: 40px;
       right: 9.6px;
   }
-  #backToTop{
-      right: 0px;
+
+  /*Aisles Page*/
+  .aisleCard {
+    width: 100%;
+    margin: 10px auto;
+    padding: 1px;
+  }
+  .aisleCard div {
+    width: 70%;
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: 500;
   }
 }
 
@@ -557,9 +652,13 @@ input[type=number]::-webkit-outer-spin-button {
   .message {
       font-size: 16.5px;
   }
-  .mainOptions{
+  .mainOptions:link{
       font-size: 16px;
-      margin: 30px;
+      padding: 0px 30px;
+  }
+  .AisleHeading{
+      font-size: 16px;
+      padding: 0px 30px;
   }
   .searchborder{
       height: 20px;
@@ -567,6 +666,8 @@ input[type=number]::-webkit-outer-spin-button {
   .searchbtn{
         font-size: 12.5px;
   }
+
+  /*CartPage*/
   .itemPriceCart{
       font-size: 12px;
       right: 45%;
@@ -587,4 +688,10 @@ input[type=number]::-webkit-outer-spin-button {
       width: 35px;
       height: 30px;
   }
+
+  /*Aisles Page*/
+  .aisleCard div {
+    width: 60%;
+    top: 35px;
+    font-size: 18px;
 }
