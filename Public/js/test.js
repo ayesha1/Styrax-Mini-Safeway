@@ -77,7 +77,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// $('#item_form').submit(function (e) {
+//   e.preventDefault();
+// })
+
+var imageBlob;
+
+function cropImage() {
+  var cropped_image = null;
+  document.getElementById('item_cropper').classList.remove('hidden');
+  let file = $('#item_image').get(0).files[0];
+  let uncropped_image = URL.createObjectURL(file);
+
+  $('#item_cropper').get(0).src = uncropped_image;
+  console.log(document.getElementById("item_cropper").src);
+
+  var cropper = new Croppie(document.getElementById("item_cropper"), {
+    viewport: {
+      height: 200,
+      width: 200
+    },
+    enforceBoundary: false
+  });
+
+  cropper.bind({
+    url: uncropped_image
+  });
+
+  document.getElementById('crop_result').classList.remove('hidden');
+
+  $('#crop_result').on('click', function (event) {
+    cropper.result({
+      type: "blob",
+      format: "jpeg",
+      backgroundColor: "white"
+    }).then(function(blob) {
+      cropped_image = URL.createObjectURL(blob);
+      blob.lastModifiedDate = new Date();
+      blob.name = file.name;
+      console.log(blob);
+      console.log(cropped_image);
+
+      imageBlob = blob;
+
+      document.getElementById('cropped_image').src = cropped_image;
+      document.getElementById('cropped_image').classList.remove('hidden');
+      document.getElementById('item_cropper').classList.add('hidden');
+      document.getElementById('crop_result').classList.add('hidden');
+      cropper.destroy();
+    });
+  })
+}
+
 function addItemToFirestore() {
+  // $('#item_form').validate();
+
+  // console.log(document.getElementById('item_form').checkValidity());
+  // console.log(document.getElementById('item_form'));
+
+  // let form_valid = document.getElementById('item_form').checkValidity();
+  // if (!form_valid) {
+  //   window.alert("Error: form is not valid, please make sure all fields are filled out properly.");
+  //   return;
+  // }
+
   let newItem = {
     name: document.getElementById("item_name").value,
     originalPrice: document.getElementById("item_price").value,
@@ -87,11 +150,12 @@ function addItemToFirestore() {
     image: ""
   };
 
-  var file = $('#item_image').get(0).files[0];
+  // let file = $('#item_image').get(0).files[0];
+  let file = imageBlob;
   console.log(newItem, file);
 
   let imageMetaData = {
-    contentType: file.type,
+    contentType: file.type
   }
 
   var task = firebase.storage().ref().child("images/" + newItem.name + "_" + file.name).put(file, imageMetaData)
@@ -105,6 +169,7 @@ function addItemToFirestore() {
 
     firebase.firestore().collection("products").doc(newItem.name).set(newItem).then(function(success) {
       window.alert("Item Successfully added to Firebase!");
+      window.location.reload();
     }).catch(error => {
       window.alert(error.code + ": " + error.message);
     })
