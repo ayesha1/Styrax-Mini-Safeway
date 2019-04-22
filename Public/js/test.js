@@ -150,6 +150,8 @@ function addItemToFirestore() {
     image: ""
   };
 
+  newItem.aisle = newItem.aisle.toLowerCase();
+
   // let file = $('#item_image').get(0).files[0];
   let file = imageBlob;
   console.log(newItem, file);
