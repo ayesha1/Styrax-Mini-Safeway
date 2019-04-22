@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const auth = firebase.auth();
   const db = firebase.firestore();
   console.log(db);
+  var loaded_items;
 
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
   //
   auth.onAuthStateChanged(user => {
+    loaded_items = [];
     //if user is authenticated
     if (user) {
       //retrieve user's personal doc using their uid
@@ -31,7 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("userName").classList.remove("hidden");
           document.getElementById("userName").innerHTML = "Hi " + userInfo.name + "!";
           document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
+          loadHomeContent();
         }
+
 
       }).catch(function(error) {
         window.alert(error.code, error.message);
@@ -45,9 +49,57 @@ document.addEventListener('DOMContentLoaded', function() {
       if (window.location.href.includes("Home.html")) {
         document.getElementById("userName").classList.add("hidden");
         document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
+        loadHomeContent();
       }
     }
-    console.log(auth.currentUser)
+
+
+    var listItems = [];
+
+
+    console.log(auth.currentUser);
+
+    var populateListFields = function (items) {
+      setTimeout(function (){
+        console.log(items);
+        for (let i in items) {
+          $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
+          $(("#" + ("item" + i))).append(
+            $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
+            $('<h5 class="itemPrice">').text("$" + items[i].originalPrice),                                         //retrieve Item Price at "$1.00"
+            $('<button class="addbtn" onlick="">').text("Add")
+          );                                                                                    //add item onclick="addfunction"
+          $(("#" + ("link" + i))).append(
+            $('<img class="itemImg img-responsive">').attr(
+              {"src": items[i].imageUrl, "alt" : ("item"+i)}),        //retrieve item image here
+              $('<h4 class="itemName">').text(items[i].name)
+          );
+        }
+      }, 1000);
+    }
+
+    var loadHomeContent = function getAllProducts() {
+      loaded_items = [];
+      let i = 0;
+      var productsRef = db.collection("products").limit(20)
+      .get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          let item = doc.data();
+          // console.log(doc.id + ": ", doc.data());
+          loaded_items[i] = item;
+          i++;
+        })
+      }).catch(error => {
+        window.alert(error.code + ": " + error.message);
+      });
+      console.log(loaded_items);
+      // pageSetup(loaded_items);
+      listItems = loaded_items;
+      console.log(loaded_items.length);
+      populateListFields(loaded_items);
+    }
+
+
   });
   // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
   // firebase.messaging().requestPermission().then(() => { });

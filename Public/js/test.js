@@ -143,9 +143,9 @@ function addItemToFirestore() {
 
   let newItem = {
     name: document.getElementById("item_name").value,
-    originalPrice: document.getElementById("item_price").value,
+    originalPrice: parseFloat(document.getElementById("item_price").value),
     aisle: document.getElementById("item_aisle").value,
-    stock: document.getElementById("item_stock").value,
+    stock: parseInt(document.getElementById("item_stock").value),
     imageUrl: "",
     image: ""
   };
