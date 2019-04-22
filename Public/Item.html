@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styrax | Name of Aisle</title>
+  <title>Styrax | Name of Item</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
@@ -34,28 +34,7 @@
 
   <!-- WebStyle Functions -->
   <script defer src="./js/webstyle.js"></script>
-  <script>
 
-    //Create List of Items
-    //***demo***
-    var NumberOfItems = 20;
-    $(document).ready(function() {
-      for(var i = 0; i < NumberOfItems; i++){
-        $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
-        $(("#" + ("item" + i))).append(
-          $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
-          $('<h5 class="itemPrice">').text("$01.00"),                                         //retrieve Item Price at "$1.00"
-          $('<button class="addbtn" onlick="">').text("Add")
-        );                                                                                    //add item onclick="addfunction"
-        $(("#" + ("link" + i))).append(
-          $('<img class="itemImg img-responsive">').attr(
-            {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+i)}),        //retrieve item image here
-            $('<h4 class="itemName">').text(("item" + i))
-          );
-      }
-    });
-
-  </script>
 </head>
 <body>
   <div class="main">
@@ -82,7 +61,7 @@
       </div>
     </nav>
 
-    <!--Aisles Page-->
+    <!--Item Page-->
     <div class="content">
       <!--Top-->
       <div class="container" style="text-align: center;">
@@ -99,27 +78,28 @@
       </div>
       <hr>
       <!--Bottom-->
-      <div class="container-fluid" style="max-width: 1440px">
-
-        <div class="col-lg-3 col-md-3 col-sm-3" style="border: 1px black solid; height: 500px; max-width: 300px;"></div>
-
-        <div class="col-lg-9 col-md-9 col-sm-9">
-            <h3 class="aisleName">AisleName</h3>
-            <!-- Template Item Card -->
-            <div id="aisle" class="items-container container-fluid">
-              <div class="itemCard" id="item">
-                <a class="itemLink" href="Item.html" id="link">
-                  <img class="itemImg img-responsive" src="http://placehold.it/500/ffffff/bbb&amp;text=1" alt="itemImg">
-                  <h4 class="itemName">itemName</h4>
-                </a>
-                <h5 class="itemPrice">$01.00</h5>
-                <button class="addbtn" onlick="">Add</button>
-              </div>
-            </div>
-            <!-- Template Item Card -->
-            <!-- More Items will be added here -->
+      <div class="container">
+        <!--Back-->
+        <a class="backIcon" href="javascript:history.go(-1)" >&#8249;
+          <span>Back</span>
+        </a>
+        <!--Item details-->
+        <div class="item-container container">
+          <div class="itemImg-container">
+            <img id="itemImg" class="itemImgItem img-responsive" src="http://placehold.it/500/ffffff/bbb&amp;text=1" alt="itemImg">
+          </div>
+          <div class="item-detail">
+            <h3 id="itemName" class="itemNameItem">itemName</h3>
+            <h4 id="itemPrice" class="itemPriceItem">$01.00</h4>
+            <button class="addbtnItem" onlick="">Add</button>
+          </div>
         </div>
-
+        <div style="border-top: 1px solid #cccccc; border-bottom: 2px solid #cccccc; padding: 10px; margin: 10px auto;">
+          <h4 class="itemDescriptionLabel" data-toggle="collapse" data-target="#itemDescription">Item description
+            <span class="caret"></span>
+          </h4>
+          <div id="itemDescription" class="itemDescription collapse">Some Edible things</div>
+        </div>
       </div>
     </div>
   </div>
