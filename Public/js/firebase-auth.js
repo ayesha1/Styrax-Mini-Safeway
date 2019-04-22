@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
           $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
           $(("#" + ("item" + i))).append(
             $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
-            $('<h5 class="itemPrice">').text("$" + items[i].originalPrice),                                         //retrieve Item Price at "$1.00"
+            $('<h5 class="itemPrice">').text("$" + items[i].originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
             $('<button class="addbtn" onlick="">').text("Add")
           );                                                                                    //add item onclick="addfunction"
           $(("#" + ("link" + i))).append(
