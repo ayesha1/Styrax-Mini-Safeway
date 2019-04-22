@@ -54,7 +54,7 @@ div.content{
     color: white;
     font-size: 15px;
     padding: 15.2px 15px 14px 15px;
-
+    cursor: default;
 }
 .activeNav{
     background: #ff855c;
@@ -179,7 +179,7 @@ button:hover.navbar-toggle{background: #ff8080;}
     text-decoration: none;
 }
 .searchborder{
-    width: 55%;
+    width: 70%;
     height: 40px;
     padding-top: 10px;
     margin: auto;
@@ -189,7 +189,7 @@ button:hover.navbar-toggle{background: #ff8080;}
     -webkit-transition: 0.3s;
     transition: 0.3s;
     position: absolute;
-    left: 22%;
+    left: 15%;
     z-index: 2;
     background: white;
 }
@@ -222,10 +222,11 @@ button:hover.navbar-toggle{background: #ff8080;}
 }
 /*HomeBot*/
 .aisle{
-    margin: auto;
-    margin-bottom: 10px;
+    display: flex;
+    flex-flow: wrap;
     padding: 5px;
     border-bottom: 2px solid #cccccc;
+    justify-content: center;
     position: relative;
 }
 .aisleName{
@@ -280,7 +281,6 @@ button:hover.navbar-toggle{background: #ff8080;}
     border-right-color: #ff4d4d;
     border-bottom-color: #ff4d4d;
     border-radius: 5px;
-    margin: auto;
     outline: none;
     position: absolute;
     bottom: 5px;
@@ -442,11 +442,12 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 10px 20px 20px 20px;
     margin: 10px auto;
 }
+
 /*Aisles Page*/
 .aisles-container {
+  max-width: 1440px;
   display: flex;
   flex-flow: wrap;
-  max-width: inherit;
   justify-content: center;
   position: relative;
 }
@@ -481,7 +482,89 @@ input[type=number]::-webkit-outer-spin-button {
   max-width: inherit;
   justify-content: center;
   position: relative;
-  border-left: 1px solid #707070;
+  border-left: 1px solid #cccccc;
+}
+
+/*Item Page*/
+/*back*/
+.backIcon:link, .backIcon:visited{
+  font-size: 20px;
+  color: #707070;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.backIcon span{
+  font-size: 15px;
+}
+.backIcon:hover{
+  color: #ff5d5d;
+  text-decoration: none;
+}
+/*Item Details*/
+.item-container{
+  display: flex;
+  flex-flow: wrap;
+  max-width: inherit;
+  justify-content: center;
+  position: relative;
+}
+.itemImg-container{
+  width: 40%;
+  padding-right: 20px;
+}
+.itemImgItem{
+  margin: auto;
+  width: 80%;
+}
+.item-detail{
+  width: 60%;
+  position: relative;
+}
+.itemNameItem{
+  font-weight: bold;
+  margin: 20px auto;
+}
+.itemPriceItem{
+  font-style: oblique;
+  font-weight: bold;
+  margin: 5px auto;
+  position: absolute;
+  bottom: 70px;
+}
+.addbtnItem{
+  color: white;
+  font-size: 22.5px;
+  background: #ff5d5d;
+  width: 146.8px;
+  height: 42px;
+  border-left-color: #ff8080;
+  border-top-color: #ff8080;
+  border-right-color: #ff4d4d;
+  border-bottom-color: #ff4d4d;
+  border-radius: 5px;
+  margin: auto;
+  outline: none;
+  position: absolute;
+  bottom: 20px;
+}
+.addbtnItem:active{
+    border-left-color: #ff4d4d;
+    border-top-color: #ff4d4d;
+    border-right-color: #ff8080;
+    border-bottom-color: #ff8080;
+}
+.itemDescriptionLabel{
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+}
+.itemDescriptionLabel:hover{
+  color: #707070;
+}
+.itemDescription{
+  width: 100%;
+  font-size: 18px;
 }
 
 /*Devices with screen smaller than or equal to 1200px*/
@@ -603,6 +686,16 @@ input[type=number]::-webkit-outer-spin-button {
       right: 0px;
   }
 
+  /*Top-HomePage*/
+  .mainOptions:link{
+      font-size: 25px;
+      padding: 0px 40px;
+  }
+  .AisleHeading{
+      font-size: 25px;
+      padding: 0px 40px;
+  }
+
   /*HomeBot*/
   .itemCard{
       width: 95%;
@@ -644,6 +737,31 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 20px;
     font-weight: 500;
   }
+
+  /*ItemsList Page*/
+  .items-container{
+    border-left-width: 0px;
+  }
+
+  /*Item Details*/
+  .itemNameItem{
+    font-size: 18px;
+  }
+  .itemPriceItem{
+    font-size: 14px;
+    bottom: 60px;
+  }
+  .addbtnItem{
+    font-size: 18px;
+    width: 117.44px;
+    height: 33px;
+  }
+  .itemDescriptionLabel{
+    font-size: 14px;
+  }
+  .itemDescription{
+    font-size: 14px;
+  }
 }
 
 /*Devices with screen smaller than or equal to 496px*/
@@ -655,10 +773,18 @@ input[type=number]::-webkit-outer-spin-button {
   .mainOptions:link{
       font-size: 16px;
       padding: 0px 30px;
+      border: 1px solid white;
+  }
+  .mainOptions:hover{
+      border: 1px solid #ff5d5d;
   }
   .AisleHeading{
       font-size: 16px;
       padding: 0px 30px;
+      border: 1px solid #ff5d5d;
+  }
+  .AisleHeading:hover{
+      border: 1px solid #ff5d5d;
   }
   .searchborder{
       height: 20px;
@@ -694,4 +820,39 @@ input[type=number]::-webkit-outer-spin-button {
     width: 60%;
     top: 35px;
     font-size: 18px;
+  }
+
+  /*ItemsList Page*/
+  .items-container{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  /*Item Details*/
+  .itemImg-container{
+    width: 100%;
+    padding-right: 0px;
+  }
+  .itemImgItem{
+    width: 50%;
+  }
+  .item-detail{
+    width: 80%;
+  }
+  .itemNameItem{
+    font-size: 14.4px;
+  }
+  .itemPriceItem{
+    font-size: 11.52px;
+    position: static;
+  }
+  .addbtnItem{
+    font-size: 18px;
+    width: 100%;
+    height: 33px;
+    position: static;
+  }
+  .itemDescription{
+    font-size: 11.52px;
+  }
 }

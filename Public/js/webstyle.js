@@ -63,7 +63,7 @@ function searchScroll() {
   }
   if(document.documentElement.scrollTop < $("#searchbar-origin-position").position().top-50
     || document.body.scrollTop > $("#searchbar-origin-position").position().top-50){
-      $("#searchbar").css({"position": "absolute", "top": "auto", "width": "55%", "left": "22%"});
+      $("#searchbar").css({"position": "absolute", "top": "auto", "width": "70%", "left": "15%"});
   }
 }
 
