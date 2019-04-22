@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const auth = firebase.auth();
   const db = firebase.firestore();
   console.log(db);
+  var loaded_items;
 
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
   //
   auth.onAuthStateChanged(user => {
+    loaded_items = [];
     //if user is authenticated
     if (user) {
       //retrieve user's personal doc using their uid
@@ -33,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
         }
 
+        loadHomeContent();
+
       }).catch(function(error) {
         window.alert(error.code, error.message);
       });
@@ -46,8 +50,54 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("userName").classList.add("hidden");
         document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
       }
+
+      loadHomeContent();
     }
-    console.log(auth.currentUser)
+
+
+    var listItems = [];
+
+
+    console.log(auth.currentUser);
+
+    var populateListFields = function (items) {
+      setTimeout(function (){
+        console.log(items);
+        for (let k in items) {
+          let itemCard = $('#' + ('item' + k));
+          let priceField = itemCard.children('.itemPrice');
+          let itemLink = itemCard.children('.itemLink');
+          let nameField = itemLink.children('.itemName');
+          let imgField = itemLink.children('.itemImg');
+          priceField.text("$" + items[k].originalPrice)
+          nameField.text("" + items[k].name);
+          imgField.attr('src', items[k].imageUrl);
+        }
+      }, 1000);
+    }
+
+    var loadHomeContent = function getAllProducts() {
+      loaded_items = [];
+      let i = 0;
+      var productsRef = db.collection("products")
+      .get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          let item = doc.data();
+          // console.log(doc.id + ": ", doc.data());
+          loaded_items[i] = item;
+          i++;
+        })
+      }).catch(error => {
+        window.alert(error.code + ": " + error.message);
+      });
+      console.log(loaded_items);
+      // pageSetup(loaded_items);
+      listItems = loaded_items;
+      console.log(loaded_items.length);
+      populateListFields(loaded_items);
+    }
+
+
   });
   // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
   // firebase.messaging().requestPermission().then(() => { });
