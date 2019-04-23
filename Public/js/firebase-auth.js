@@ -181,10 +181,14 @@ var loadHomeContent = function loadHomeContent() {
 }
 
 function handleLogin(){
+  const auth = firebase.auth();
+
+  deleteAnonymousCart();
+
   let email = document.getElementById("login_email").value;
   let password = document.getElementById("login_password").value;
 
-  firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+  auth.signInWithEmailAndPassword(email, password).then(function() {
     // window.alert("Login success");
     window.location.href = "./Home.html";
   }).catch(function(error) {
@@ -208,6 +212,8 @@ function registerUser() {
     }
   };
 
+  deleteAnonymousCart();
+
   console.log(email, password);
   firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
     let userId = firebase.auth().currentUser.uid;
@@ -215,8 +221,9 @@ function registerUser() {
     firebase.firestore().collection("users").doc(userId).set({
       "userInfo": newUser
     }).then(function (docRef) {
-      window.alert("success");
+      // window.alert("success");
       console.log(docRef);
+      window.location.href = './Home.html';
     }).catch(function(error) {
       window.alert(error.code, error.message);
     })
@@ -235,6 +242,19 @@ function handleLogout() {
   }).catch(function(error) {
     window.alert("logout Unsuccessful");
   });
+}
+
+function deleteAnonymousCart() {
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  if (auth.currentUser && auth.currentUser.isAnonymous) {
+    db.collection('carts').doc(auth.currentUser.uid).delete().then(function() {
+      // window.alert('cart deleted');
+    }).catch(error => {
+      window.alert(error.code + ": " + error.message);
+    });
+  }
 }
 
 function handleCheckout() {
