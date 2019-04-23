@@ -38,17 +38,17 @@
 
     //Create List of Aisles
     //***demo***
-    var NumberOfAisles = 10;
-    $(document).ready(function(){
-      for(var i = 0; i < NumberOfAisles; i++){
-        $('#aisles').append($('<div class="aisleCard">').attr("id", ("Aisle"+i)));
-        $(("#"+("Aisle"+i))).append($('<a class="itemLink">').attr({"href": ("link"+i), "id": ("link" + i)}));
-        $(("#"+("link" + i))).append(
-          $('<div>').text("Aisle"+i),
-          $('<img class="itemImg img-responsive">').attr({"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("Aisle"+i)})
-        );
-      }
-    });
+    // var NumberOfAisles = 10;
+    // $(document).ready(function(){
+    //   for(var i = 0; i < NumberOfAisles; i++){
+    //     $('#aisles').append($('<div class="aisleCard">').attr("id", ("Aisle"+i)));
+    //     $(("#"+("Aisle"+i))).append($('<a class="itemLink">').attr({"href": ("link"+i), "id": ("link" + i)}));
+    //     $(("#"+("link" + i))).append(
+    //       $('<div>').text("Aisle"+i),
+    //       $('<img class="itemImg img-responsive">').attr({"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("Aisle"+i)})
+    //     );
+    //   }
+    // });
 
   </script>
 </head>
@@ -96,12 +96,12 @@
       <!--Bottom-->
       <div id="aisles" class="aisles-container container-fluid">
         <!--Template Aisle Card-->
-        <div class="aisleCard" id="AisleTemplate">
+        <!-- <div class="aisleCard" id="AisleTemplate">
           <a class="itemLink" href="./ItemsList.html" id="linkTemplate">
             <div>AisleName</div>
             <img class="itemImg img-responsive" src="http://placehold.it/500/ffffff/bbb&amp;text=1" alt="AisleImg">
           </a>
-        </div>
+        </div> -->
         <!--Template Aisle Card-->
         <!-- More Items will be added here -->
       </div>
@@ -116,5 +116,7 @@
       <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
     </div>
   </footer>
+
+  <script src="./js/firebase-auth.js"></script>
 </body>
 </html>
