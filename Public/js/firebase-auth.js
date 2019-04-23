@@ -54,8 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
           // loadHomeContent();
         }
       }
-      loadHomeContent();
 
+      if (window.location.href.includes('Home.html')) {
+        loadHomeContent();
+      } else if (window.location.href.includes('Cart.html')) {
+        retrieveCart();
+      }
     } else {
 
       auth.signInAnonymously().catch(error => {
@@ -64,11 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-
-    var listItems = [];
-
-
-    console.log(auth.currentUser);
+    // console.log(auth.currentUser);
 
     addItemToCart = function(item) {
       let cartsRef = db.collection('carts');
@@ -135,6 +135,134 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 var addItemToCart;
+var retrieveCart = function () {
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+  const cartsRef = db.collection('carts');
+
+  var cart;
+  cartsRef.doc(auth.currentUser.uid)
+  .get()
+  .then(doc => {
+    if (doc.exists) {
+
+      cart = doc.data();
+      console.log(cart);
+      let cartItems = cart.items;
+
+      let itemList = [];
+
+      let i = 1;
+      for (let name in cartItems) {
+        console.log(name, cartItems[name]);
+
+        let item = cartItems[name];
+
+        cartItems[name].ref.get()
+        .then(function(itemDoc) {
+
+          if (itemDoc.exists) {
+            // console.log(itemDoc.data());
+            let itemData = itemDoc.data();
+            itemList.push({
+              price: itemData.originalPrice,
+              count: item.count
+            });
+            console.log(itemList);
+
+            $('#cartList').append($('<div class="itemCart">').attr("id" , ("item"+i)));
+            $(("#"+ ("item"+i))).append(
+              $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),
+              $('<h5 class="itemPriceCart">').text("$" + itemData.originalPrice.toFixed(2)),
+              $('<form class="quantityBox">').attr("id" , ("form"+i))
+            );
+            $(("#" + ("link" + i))).append(
+              $('<img class="itemImgCart img-responsive">').attr({
+                "src": itemData.imageUrl,
+                "alt": (itemData.name)
+              }),
+              $('<h4 class="itemName">').text((itemData.name))
+            );
+            var input = "input" + i;
+            var decrease = $('<div class="quantityBtn decBtn">');
+            decrease.attr("onclick", "decreaseValue(" + input + ")");
+            var increase = $('<div class="quantityBtn incBtn">');
+            increase.attr("onclick", "increaseValue(" + input + ")");
+            $(("#" + ("form"+i))).append(
+              decrease.text("-"),
+              $('<input class="inputQuantity" type="number">').attr({"id": input, "value": item.count}),
+              increase.text("+")
+            );
+
+            decrease.on('click', function() {
+              cart.items[name].count--;
+              // console.log(cart.items[name].count);
+              cartsRef.doc(auth.currentUser.uid).update(cart).then(function() {
+                // window.alert("cart updated");
+                // updateCartSummary(itemList);
+                window.location.href = "";
+              }).catch(error => {
+                window.alert(error.code + ": " + error.message);
+              });
+            });
+
+            increase.on('click', function() {
+              cart.items[name].count++;
+              // console.log(cart.items[name].count);
+              cartsRef.doc(auth.currentUser.uid).update(cart).then(function() {
+                // console.log("cart updated");
+                // updateCartSummary(itemList);
+                window.location.href = "";
+              }).catch(error => {
+                window.alert(error.code + ": " + error.message);
+              });
+            });
+            i++;
+          }
+
+        })
+        .then(function() {
+
+          updateCartSummary(itemList);
+
+        }).catch(error => {
+          window.alert(error.code + ": " + error.message);
+        });
+      }
+    }
+  })
+
+  function updateCartSummary(list) {
+    let totalCost = 0.00,
+        discountedTotal = 0.00,
+        discounts = 0.00,
+        tax = 0.00,
+        subtotal = 0.00,
+        discount = 0.00;
+
+    const taxRate = 0.09;
+
+    for (item of list) {
+      totalCost += item.price * item.count;
+    }
+
+    if (!auth.currentUser.isAnonymous) {
+      discount = 0.10;
+    }
+
+    discountAmount = totalCost * discount;
+    discountedTotal = totalCost - discountAmount;
+    tax = discountedTotal * taxRate;
+    subtotal = discountedTotal + tax;
+
+    console.log(totalCost);
+    $('#cartPrice').text("$" + totalCost.toFixed(2));
+    $('#discounts').text((discount * 100) + "% (-$" + discountAmount.toFixed(2) + ")");
+    $('#taxes').text("+$" + tax.toFixed(2));
+    $('#totalPrice').text("$" + subtotal.toFixed(2));
+
+  }
+};
 
 var populateListFields = function (items) {
   setTimeout(function (){
@@ -175,7 +303,6 @@ var loadHomeContent = function loadHomeContent() {
   });
   console.log(loaded_items);
   // pageSetup(loaded_items);
-  listItems = loaded_items;
   console.log(loaded_items.length);
   populateListFields(loaded_items);
 }
