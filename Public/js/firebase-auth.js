@@ -145,12 +145,12 @@ var retrieveCart = function () {
   .get()
   .then(doc => {
     if (doc.exists) {
-      let currentCartRef = doc;
 
-      console.log(currentCartRef);
       cart = doc.data();
       console.log(cart);
       let cartItems = cart.items;
+
+      let itemList = [];
 
       let i = 1;
       for (let name in cartItems) {
@@ -164,6 +164,12 @@ var retrieveCart = function () {
           if (itemDoc.exists) {
             // console.log(itemDoc.data());
             let itemData = itemDoc.data();
+            itemList.push({
+              price: itemData.originalPrice,
+              count: item.count
+            });
+            console.log(itemList);
+
             $('#cartList').append($('<div class="itemCart">').attr("id" , ("item"+i)));
             $(("#"+ ("item"+i))).append(
               $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),
@@ -193,6 +199,8 @@ var retrieveCart = function () {
               // console.log(cart.items[name].count);
               cartsRef.doc(auth.currentUser.uid).update(cart).then(function() {
                 // window.alert("cart updated");
+                // updateCartSummary(itemList);
+                window.location.href = "";
               }).catch(error => {
                 window.alert(error.code + ": " + error.message);
               });
@@ -203,6 +211,8 @@ var retrieveCart = function () {
               // console.log(cart.items[name].count);
               cartsRef.doc(auth.currentUser.uid).update(cart).then(function() {
                 // console.log("cart updated");
+                // updateCartSummary(itemList);
+                window.location.href = "";
               }).catch(error => {
                 window.alert(error.code + ": " + error.message);
               });
@@ -210,12 +220,48 @@ var retrieveCart = function () {
             i++;
           }
 
+        })
+        .then(function() {
+
+          updateCartSummary(itemList);
+
         }).catch(error => {
           window.alert(error.code + ": " + error.message);
         });
       }
     }
   })
+
+  function updateCartSummary(list) {
+    let totalCost = 0.00,
+        discountedTotal = 0.00,
+        discounts = 0.00,
+        tax = 0.00,
+        subtotal = 0.00,
+        discount = 0.00;
+
+    const taxRate = 0.09;
+
+    for (item of list) {
+      totalCost += item.price * item.count;
+    }
+
+    if (!auth.currentUser.isAnonymous) {
+      discount = 0.10;
+    }
+
+    discountAmount = totalCost * discount;
+    discountedTotal = totalCost - discountAmount;
+    tax = discountedTotal * taxRate;
+    subtotal = discountedTotal + tax;
+
+    console.log(totalCost);
+    $('#cartPrice').text("$" + totalCost.toFixed(2));
+    $('#discounts').text((discount * 100) + "% (-$" + discountAmount.toFixed(2) + ")");
+    $('#taxes').text("+$" + tax.toFixed(2));
+    $('#totalPrice').text("$" + subtotal.toFixed(2));
+
+  }
 };
 
 var populateListFields = function (items) {
