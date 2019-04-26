@@ -59,6 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
         loadHomeContent();
       } else if (window.location.href.includes('Cart.html')) {
         retrieveCart();
+      } else if (window.location.href.includes('Aisles.html')) {
+        populateAisles();
       }
     } else {
 
@@ -133,6 +135,45 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 });
+
+
+function titleCase(str) {
+  if (!str.includes(" ")) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  let splitStr = str.split(' ');
+  for (let i = 0; i < splitStr.length; i++) {
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  return splitStr.join(" ");
+}
+
+var populateAisles = function () {
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const aislesRef = db.collection('aisles');
+
+
+  let i = 0;
+  aislesRef.limit(20).get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      let aisle = doc.data();
+      // console.log(aisle, doc);
+      let displayName = titleCase(aisle.name);
+
+      $('#aisles').append($('<div class="aisleCard">').attr("id", ("Aisle"+i)));
+      $(("#"+("Aisle"+i))).append($('<a class="itemLink">').attr({"href": ("./ItemsList.html?a=" + aisle.name), "id": ("link" + i)}));
+      $(("#"+("link" + i))).append(
+        $('<div>').text(displayName),
+        $('<img class="itemImg img-responsive">').attr({"src": aisle.imageUrl, "alt": displayName})
+      );
+
+      i++;
+    })
+  })
+
+}
 
 var addItemToCart;
 var retrieveCart = function () {
