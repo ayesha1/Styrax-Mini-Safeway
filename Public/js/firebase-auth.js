@@ -305,47 +305,34 @@ var retrieveCart = function () {
   }
 };
 
-var populateListFields = function (items) {
-  setTimeout(function (){
-    console.log(items);
-    for (let i in items) {
-      $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
-      $(("#" + ("item" + i))).append(
-        $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
-        $('<h5 class="itemPrice">').text("$" + items[i].originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
-        $('<button class="addbtn" id="addItem' + i + '" onlick="addItemToCart(' + i + ')">').text("Add")
-      );                                                                                    //add item onclick="addfunction"
-      $(("#" + ("link" + i))).append(
-        $('<img class="itemImg img-responsive">').attr(
-          {"src": items[i].imageUrl, "alt" : ("item"+i)}),        //retrieve item image here
-          $('<h4 class="itemName">').text(items[i].name)
-      );
-
-      $('#' + ('addItem' + i)).on('click', function () {
-        addItemToCart(items[i]);
-      })
-    }
-  }, 1000);
-}
-
 var loadHomeContent = function loadHomeContent() {
-  loaded_items = [];
   let i = 0;
   let productsRef = firebase.firestore().collection("products").limit(20)
   .get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
       let item = doc.data();
+      console.log(item);
       // console.log(doc.id + ": ", doc.data());
-      loaded_items[i] = item;
+      $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
+      $(("#" + ("item" + i))).append(
+        $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
+        $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
+        $('<button class="addbtn" id="addItem' + i + '" onlick="addItemToCart(' + i + ')">').text("Add")
+      );                                                                                    //add item onclick="addfunction"
+      $(("#" + ("link" + i))).append(
+        $('<img class="itemImg img-responsive">').attr(
+          {"src": item.imageUrl, "alt" : ("item"+i)}),        //retrieve item image here
+          $('<h4 class="itemName">').text(item.name)
+      );
+
+      $('#' + ('addItem' + i)).on('click', function () {
+        addItemToCart(item);
+      })
       i++;
     })
   }).catch(error => {
     window.alert(error.code + ": " + error.message);
   });
-  console.log(loaded_items);
-  // pageSetup(loaded_items);
-  console.log(loaded_items.length);
-  populateListFields(loaded_items);
 }
 
 function handleLogin(){
