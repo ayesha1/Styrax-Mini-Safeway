@@ -72,22 +72,22 @@ and open the template in the editor.
 
       //Create List of Items
       //***demo***
-      var NumberOfItems = 20;
-      $(document).ready(function() {
-        for(var i = 0; i < NumberOfItems; i++){
-          $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
-          $(("#" + ("item" + i))).append(
-            $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
-            $('<h5 class="itemPrice">').text("$01.00"),                                         //retrieve Item Price at "$1.00"
-            $('<button class="addbtn" onlick="">').text("Add")
-          );                                                                                    //add item onclick="addfunction"
-          $(("#" + ("link" + i))).append(
-            $('<img class="itemImg img-responsive">').attr(
-              {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+i)}),        //retrieve item image here
-              $('<h4 class="itemName">').text(("item" + i))
-            );
-        }
-      });
+      // var NumberOfItems = 20;
+      // $(document).ready(function() {
+      //   for(var i = 0; i < NumberOfItems; i++){
+      //     $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
+      //     // $(("#" + ("item" + i))).append(
+      //     //   $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
+      //     //   $('<h5 class="itemPrice">').text("$01.00"),                                         //retrieve Item Price at "$1.00"
+      //     //   $('<button class="addbtn" onlick="">').text("Add")
+      //     // );                                                                                    //add item onclick="addfunction"
+      //     // $(("#" + ("link" + i))).append(
+      //     //   $('<img class="itemImg img-responsive">').attr(
+      //     //     {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+i)}),        //retrieve item image here
+      //     //     $('<h4 class="itemName">').text(("item" + i))
+      //     // );
+      //   }
+      // });
 
     </script>
   </head>
@@ -121,7 +121,7 @@ and open the template in the editor.
       <div class="content">
         <!--Top-->
         <div class="hometop container">
-          <p class="message" id="guest_message">Sign In and Receive Online Discounts!</p>
+          <p class="message" id="guest_message"></p>
           <img  class="homeImg img-responsive" src="./images/homeStyrax.jpg" alt="Styrax">
           <a href="./Aisles.html" class="mainOptions" title="Visit Our Aisles">Aisles</a>
           <a href="./MyPurchases.html" class="mainOptions" title="Visit Your Previous Orders">My Purchases</a>

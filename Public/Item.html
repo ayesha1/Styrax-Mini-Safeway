@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Styrax | Cart</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styrax | Name of Item</title>
 
   <!-- update the version number as needed -->
   <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
@@ -27,17 +29,12 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
+  <!-- CSS classes -->
   <link rel="stylesheet" href="./css/WebStyle.css">
-  <script src="./js/webstyle.js"></script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script src="./js/webstyle.js"></script>
-  <link rel="stylesheet" href="./css/WebStyle.css">
-  
+  <!-- WebStyle Functions -->
+  <script defer src="./js/webstyle.js"></script>
+
 </head>
 <body>
   <div class="main">
@@ -52,44 +49,56 @@
           </button>
           <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
         </div>
-        <div class="collapse navbar-collapse" id="myNav">
+        <div class="collapse navbar-collapse"  id="myNav">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
             <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
             <li class="userName hidden" id="userName"></li>
             <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-            <li><a href="./Cart.html" class="navOptions activeNav"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+            <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!--Cart Page-->
+    <!--Item Page-->
     <div class="content">
-      <div class="cart-container container">
-        <!--Items in Cart-->
-        <div class="cartList" id="cartList">
-          <h2 style="height:39.5px; font-size: 34px;">My Cart</h2>
-          <hr>
-          <label class="col-lg-4 col-md-4 col-xs-4" style="border-Bottom: 1px solid black;">Item</label>
-          <label class="col-lg-4 col-md-4 col-xs-4" style="text-align: center; border-Bottom: 1px solid black;">Price</label>
-          <label class="col-lg-4 col-md-4 col-xs-4" style="text-align: center; border-Bottom: 1px solid black;">Quantity</label>
-          <!--list of items will be load here-->
+      <!--Top-->
+      <div class="container" style="text-align: center;">
+        <a id="AislesOpt" href="./Aisles.html" class="mainOptions" title="Visit Our Aisles">Aisles</a>
+        <a id="MyPurchasesOpt" href="./MyPurchases.html" class="mainOptions" title="Visit Your Previous Orders">My Purchases</a>
+        <form>
+          <div id="searchbar-origin-position"></div>
+          <div id="searchbar" class="searchborder">
+            <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="Enter search item...">
+            <button class="searchbtn" onclick="" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </form>
+        <p class="message" id="guest_message" style="margin-top: 50px;">Sign In and Receive Online Discounts!</p>
+      </div>
+      <hr>
+      <!--Bottom-->
+      <div class="container">
+        <!--Back-->
+        <a class="backIcon" href="javascript:history.go(-1)" >&#8249;
+          <span>Back</span>
+        </a>
+        <!--Item details-->
+        <div class="item-container container">
+          <div class="itemImg-container">
+            <img id="itemImg" class="itemImgItem img-responsive" src="http://placehold.it/500/ffffff/bbb&amp;text=1" alt="itemImg">
+          </div>
+          <div class="item-detail">
+            <h3 id="itemName" class="itemNameItem">itemName</h3>
+            <h4 id="itemPrice" class="itemPriceItem">$01.00</h4>
+            <button class="addbtnItem" onlick="">Add</button>
+          </div>
         </div>
-
-        <!--Cart Summary-->
-        <div class="cartSummary" >
-          <h2 class="cartSummaryHeader">Cart Summary</h2>
-          <div id="itemNumber" class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Items (0)</div>
-          <div id="cartPrice"class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
-          <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Discounts</div>
-          <div id="discounts"class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">10%</div>
-          <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Taxes</div>
-          <div id="taxes"class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
-          <div class="col-lg-12 col-md-12 col-xs-12" style="border-bottom: 1px solid #707070;"></div>
-          <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Total</div>
-          <div id="totalPrice" class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
-          <button id="cartCheckout" class="submitbtn" type="submit" onclick="handleCheckout()">Check Out</button>
+        <div style="border-top: 1px solid #cccccc; border-bottom: 2px solid #cccccc; padding: 10px; margin: 10px auto;">
+          <h4 class="itemDescriptionLabel" data-toggle="collapse" data-target="#itemDescription">Item description
+            <span class="caret"></span>
+          </h4>
+          <div id="itemDescription" class="itemDescription collapse">Some Edible things</div>
         </div>
       </div>
     </div>
@@ -102,6 +111,5 @@
       <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
     </div>
   </footer>
-    <script type="text/javascript" src="./js/firebase-auth.js"></script>
 </body>
 </html>
