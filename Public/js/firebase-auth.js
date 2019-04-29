@@ -62,6 +62,19 @@ document.addEventListener('DOMContentLoaded', function() {
         retrieveCart();
       } else if (window.location.href.includes('Aisles.html')) {
         populateAisles();
+      } else if (window.location.href.includes('PaymentPage.html')) {
+        $('#cartCheckout').on('click', function() {
+          // if (!auth.currentUser.isAnonymous) {
+          //   addCartToHistory();
+          // }
+          // db.collection('carts').doc(auth.currentUser.uid).delete()
+          // .then(function() {
+          //   console.log("Cart Deleted");
+          // }).catch(error => {
+          //   window.alert(error.code + ": " + error.message);
+          // });
+          addCartToHistory();
+        })
       }
     } else {
 
@@ -137,6 +150,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+var addCartToHistory = function () {
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const cartsRef = db.collection('carts');
+  const historyRef = db.collection('history');
+
+  let newHistory = {
+    items: {}
+  };
+
+  cartsRef.doc(auth.currentUser.uid).get()
+  .then(doc => {
+    if (doc.exists) {
+      let cart = doc.data().items;
+      console.log(cart);
+      let historyItems = newHistory.items;
+
+      for (let name in cart) {
+        // console.log(name, cart[name]);
+        historyItems[name] = {
+          ref: cart[name].ref,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        // console.log(name, historyItems[name]);
+      }
+      console.log(newHistory);
+      if (!auth.currentUser.isAnonymous) {
+        userHistoryRef = historyRef.doc(auth.currentUser.uid);
+        userHistoryRef.get()
+        .then(historyDoc => {
+          let historyData;
+
+          if (historyDoc.exists) {
+
+            historyData = historyDoc.data();
+            for (let name in historyItems) {
+              historyData.items[name] = historyItems[name];
+            }
+            console.log(historyData);
+
+          } else {
+            historyData = {
+              items: historyItems
+            };
+          }
+
+          userHistoryRef.set(historyData)
+          .then(function() {
+            console.log("history updated");
+          }).catch(error => {
+            window.alert(error.code + ": " + error.message);
+          });
+
+        }).catch(error => {
+          window.alert(error.code + ": " + error.message);
+        });
+      }
+    }
+    console.log('cart added to history');
+  })
+  .then(function() {
+    cartsRef.doc(auth.currentUser.uid).delete()
+    .then(function() {
+      console.log("Cart Deleted");
+    })
+  })
+  .catch(error => {
+    window.alert(error.code + ": " + error.message);
+  })
+
+}
+
 
 function titleCase(str) {
   if (!str.includes(" ")) {
@@ -210,7 +295,7 @@ var retrieveCart = function () {
               price: itemData.originalPrice,
               count: item.count
             });
-            console.log(itemList);
+            // console.log(itemList);
 
             $('#cartList').append($('<div class="itemCart">').attr("id" , ("item"+i)));
             $(("#"+ ("item"+i))).append(
@@ -297,7 +382,7 @@ var retrieveCart = function () {
     tax = discountedTotal * taxRate;
     subtotal = discountedTotal + tax;
 
-    console.log(totalCost);
+    // console.log(totalCost);
     $('#cartPrice').text("$" + totalCost.toFixed(2));
     $('#discounts').text((discount * 100) + "% (-$" + discountAmount.toFixed(2) + ")");
     $('#taxes').text("+$" + tax.toFixed(2));
