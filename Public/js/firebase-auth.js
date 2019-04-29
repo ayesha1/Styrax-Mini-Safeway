@@ -64,17 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
         populateAisles();
       } else if (window.location.href.includes('PaymentPage.html')) {
         $('#cartCheckout').on('click', function() {
-          // if (!auth.currentUser.isAnonymous) {
-          //   addCartToHistory();
-          // }
-          // db.collection('carts').doc(auth.currentUser.uid).delete()
-          // .then(function() {
-          //   console.log("Cart Deleted");
-          // }).catch(error => {
-          //   window.alert(error.code + ": " + error.message);
-          // });
           addCartToHistory();
         })
+      } else if (window.location.href.includes('MyPurchases.html')) {
+        if (!auth.currentUser.isAnonymous) {
+          loadHistory();
+        } else {
+          $('#guest_message').text("Sign In to see your previous Purchases");
+        }
       }
     } else {
 
@@ -149,6 +146,59 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 });
+
+var loadHistory = function () {
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const historiesRef = db.collection('history');
+
+  let i = 0;
+  if (!auth.currentUser.isAnonymous) {
+    const userHistoryRef = historiesRef.doc(auth.currentUser.uid);
+    userHistoryRef.get()
+    .then(historyDoc => {
+      if (historyDoc.exists) {
+        let history = historyDoc.data();
+        console.log(history, historyDoc);
+
+        for (let name in history.items) {
+          let itemRef = history.items[name];
+          console.log(name, itemRef);
+
+          itemRef.ref.get()
+          .then(itemDoc => {
+            if (itemDoc.exists) {
+              console.log(itemDoc.data());
+              let item = itemDoc.data();
+
+              $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
+              $(("#" + ("item" + i))).append(
+                $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
+                $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
+                $('<button class="addbtn" onlick="">').text("Add")
+                .on('click', function() {
+                  addItemToCart(item);
+                })
+              );                                                                                    //add item onclick="addfunction"
+              $(("#" + ("link" + i))).append(
+                $('<img class="itemImg img-responsive">').attr(
+                  {"src": item.imageUrl, "alt" : item.name}
+                ),        //retrieve item image here
+                $('<h4 class="itemName">').text(item.name)
+              );
+
+              i++;
+            }
+          })
+        }
+      }
+    })
+    .catch(error => {
+      window.alert(error.code + ": " + error.message);
+    });
+  }
+
+};
 
 var addCartToHistory = function () {
   const auth = firebase.auth();
@@ -401,7 +451,7 @@ var loadHomeContent = function loadHomeContent() {
       // console.log(doc.id + ": ", doc.data());
       $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
       $(("#" + ("item" + i))).append(
-        $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
+        $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
         $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
         $('<button class="addbtn" id="addItem' + i + '" onlick="addItemToCart(' + i + ')">').text("Add")
       );                                                                                    //add item onclick="addfunction"
