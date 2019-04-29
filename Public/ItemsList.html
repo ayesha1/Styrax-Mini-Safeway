@@ -1,135 +1,115 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styrax | Name of Aisle</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styrax | Name of Aisle</title>
 
-  <!-- update the version number as needed -->
-  <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
-  <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
-  <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
-  <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
-  <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
 
-  <!-- initialize the SDK after all desired features are loaded -->
-  <script defer src="/__/firebase/init.js"></script>
-  <!-- JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <!-- Bootstrap -->
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
-  <!-- CSS classes -->
-  <link rel="stylesheet" href="./css/WebStyle.css">
+    <!-- CSS classes -->
+    <link rel="stylesheet" href="./css/WebStyle.css">
 
-  <!-- WebStyle Functions -->
-  <script defer src="./js/webstyle.js"></script>
-  <script>
-
-    //Create List of Items
-    //***demo***
-    var NumberOfItems = 20;
-    $(document).ready(function() {
-      for(var i = 0; i < NumberOfItems; i++){
-        $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
-        $(("#" + ("item" + i))).append(
-          $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
-          $('<h5 class="itemPrice">').text("$01.00"),                                         //retrieve Item Price at "$1.00"
-          $('<button class="addbtn" onlick="">').text("Add")
-        );                                                                                    //add item onclick="addfunction"
-        $(("#" + ("link" + i))).append(
-          $('<img class="itemImg img-responsive">').attr(
-            {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+i)}),        //retrieve item image here
-            $('<h4 class="itemName">').text(("item" + i))
-          );
-      }
-    });
-
-  </script>
-</head>
-<body>
-  <div class="main">
-    <!--Header-->
-    <nav class="navbar navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-        </div>
-        <div class="collapse navbar-collapse"  id="myNav">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
-            <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
-            <li class="userName hidden" id="userName"></li>
-            <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-            <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!--Aisles Page-->
-    <div class="content">
-      <!--Top-->
-      <div class="container" style="text-align: center;">
-        <a id="AislesOpt" href="./Aisles.html" class="mainOptions" title="Visit Our Aisles">Aisles</a>
-        <a id="MyPurchasesOpt" href="./MyPurchases.html" class="mainOptions" title="Visit Your Previous Orders">My Purchases</a>
-        <form>
-          <div id="searchbar-origin-position"></div>
-          <div id="searchbar" class="searchborder">
-            <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="Enter search item...">
-            <button class="searchbtn" onclick="" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
+    <!-- WebStyle Functions -->
+    <script defer src="./js/webstyle.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <!--Header-->
+      <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
           </div>
-        </form>
-        <p class="message" id="guest_message" style="margin-top: 50px;">Sign In and Receive Online Discounts!</p>
-      </div>
-      <hr>
-      <!--Bottom-->
-      <div class="container-fluid" style="max-width: 1440px">
-
-        <div class="col-lg-3 col-md-3 col-sm-3" style="border: 1px black solid; height: 500px; max-width: 300px;"></div>
-
-        <div class="col-lg-9 col-md-9 col-sm-9">
-            <h3 class="aisleName">AisleName</h3>
-            <!-- Template Item Card -->
-            <div id="aisle" class="items-container container-fluid">
-              <div class="itemCard" id="item">
-                <a class="itemLink" href="Item.html" id="link">
-                  <img class="itemImg img-responsive" src="http://placehold.it/500/ffffff/bbb&amp;text=1" alt="itemImg">
-                  <h4 class="itemName">itemName</h4>
-                </a>
-                <h5 class="itemPrice">$01.00</h5>
-                <button class="addbtn" onlick="">Add</button>
-              </div>
-            </div>
-            <!-- Template Item Card -->
-            <!-- More Items will be added here -->
+          <div class="collapse navbar-collapse"  id="myNav">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+              <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
+              <li class="userName hidden" id="userName"></li>
+              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+            </ul>
+          </div>
         </div>
+      </nav>
 
+      <!--Aisles Page-->
+      <div class="content">
+        <!--Top-->
+        <div class="container" style="text-align: center;">
+          <a id="AislesOpt" href="./Aisles.html" class="mainOptions" title="Visit Our Aisles">Aisles</a>
+          <a id="MyPurchasesOpt" href="./MyPurchases.html" class="mainOptions" title="Visit Your Previous Orders">My Purchases</a>
+          <form>
+            <div id="searchbar-origin-position"></div>
+            <div id="searchbar" class="searchborder">
+              <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="Enter search item...">
+              <button class="searchbtn" onclick="" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </form>
+          <p class="message" id="guest_message" style="margin-top: 50px;">Sign In and Receive Online Discounts!</p>
+        </div>
+        <hr>
+        <!--Bottom-->
+        <div class="container-fluid" style="max-width: 1440px">
+
+          <div class="col-lg-3 col-md-3 col-sm-3" style="border: 1px black solid; height: 500px; max-width: 300px;"></div>
+
+          <div class="col-lg-9 col-md-9 col-sm-9">
+              <h3 class="aisleName">AisleName</h3>
+              <!-- Template Item Card -->
+              <div id="aisle" class="items-container container-fluid">
+                <!-- <div class="itemCard" id="item">
+                  <a class="itemLink" href="Item.html" id="link">
+                    <img class="itemImg img-responsive" src="http://placehold.it/500/ffffff/bbb&amp;text=1" alt="itemImg">
+                    <h4 class="itemName">itemName</h4>
+                  </a>
+                  <h5 class="itemPrice">$01.00</h5>
+                  <button class="addbtn" onlick="">Add</button>
+                </div> -->
+              </div>
+              <!-- Template Item Card -->
+              <!-- More Items will be added here -->
+          </div>
+
+        </div>
       </div>
     </div>
-  </div>
-  <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
-  <!--Footer-->
-  <footer>
-    <hr style="margin-bottom: 80px;">
-    <div class="footer">
-      <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
-    </div>
-  </footer>
-</body>
+    <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
+    <!--Footer-->
+    <footer>
+      <hr style="margin-bottom: 80px;">
+      <div class="footer">
+        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      </div>
+    </footer>
+
+    <script src="./js/firebase-auth.js" charset="utf-8"></script>
+  </body>
 </html>

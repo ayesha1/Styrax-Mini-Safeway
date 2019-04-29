@@ -3,15 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const auth = firebase.auth();
   const db = firebase.firestore();
   console.log(db);
-  var loaded_items;
-
-
 
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
   //
   auth.onAuthStateChanged(user => {
-    loaded_items = [];
     //if user is authenticated
     if (user) {
       //retrieve user's personal doc using their uid
@@ -35,9 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("userName").classList.remove("hidden");
             document.getElementById("userName").innerHTML = "Hi " + userInfo.name + "!";
             document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
-            // loadHomeContent();
           }
-
 
         }).catch(function(error) {
           window.alert(error.code, error.message);
@@ -72,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           $('#guest_message').text("Sign In to see your previous Purchases");
         }
+      } else if (window.location.href.includes('ItemsList.html')) {
+        loadItemList();
       }
     } else {
 
@@ -80,8 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
     }
-
-    // console.log(auth.currentUser);
 
     addItemToCart = function(item) {
       let cartsRef = db.collection('carts');
@@ -199,6 +193,53 @@ var loadHistory = function () {
   }
 
 };
+
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value.replace("%20", " ");
+  });
+  return vars;
+}
+
+var loadItemList = function () {
+  const urlParams = getUrlVars();
+  const db = firebase.firestore();
+  const productsRef = db.collection('products');
+  let currentAisle = urlParams.a;
+
+  console.log(urlParams);
+  let i = 0;
+  productsRef.where("aisle", "==", currentAisle).get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(itemDoc => {
+      if (itemDoc.exists) {
+        // console.log(itemDoc.data());
+        let item = itemDoc.data();
+
+        $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
+        $(("#" + ("item" + i))).append(
+          $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
+          $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
+          $('<button class="addbtn" onlick="">').text("Add")
+          .on('click', function() {
+            addItemToCart(item);
+          })
+        );                                                                                    //add item onclick="addfunction"
+        $(("#" + ("link" + i))).append(
+          $('<img class="itemImg img-responsive">').attr(
+            {"src": item.imageUrl, "alt" : item.name}
+          ),        //retrieve item image here
+          $('<h4 class="itemName">').text(item.name)
+        );
+        i++;
+      }
+    })
+  })
+  .catch(error => {
+    window.alert(error.code + ": " + error.message);
+  });
+}
 
 var addCartToHistory = function () {
   const auth = firebase.auth();
@@ -447,7 +488,7 @@ var loadHomeContent = function loadHomeContent() {
   .get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
       let item = doc.data();
-      console.log(item);
+      // console.log(item);
       // console.log(doc.id + ": ", doc.data());
       $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
       $(("#" + ("item" + i))).append(
