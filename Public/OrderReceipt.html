@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Styrax | Order Receipt</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.2/firebase-firestore.js"></script>
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <!-- CSS classes -->
+    <link rel="stylesheet" href="./css/WebStyle.css">
+
+    <!-- WebStyle Functions -->
+    <script defer src="./js/webstyle.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        for(var i=0; i < 3; i++){
+          $('#cartListReceipt').append($('<div class="itemCart">').attr("id" , ("item"+i)));
+          $(("#"+ ("item"+i))).append(
+            $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),
+            $('<h5 class="itemPriceCart">').text("$" + "1.00"),
+            $('<h5 class="itemQuantity">').text("2")//display chosen quantity for each item
+          );
+          $(("#" + ("link" + i))).append(
+            $('<img class="itemImgCart img-responsive">').attr({
+              "src": "http://placehold.it/500/ffffff/bbb&text=1",
+              "alt": ("item"+i)
+            }),
+            $('<h4 class="itemName">').text(("item"+i))
+          );
+        }
+      });
+    </script>
+
+  </head>
+
+  <body>
+    <div class="main">
+      <!--Header-->
+      <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNav">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
+              <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
+              <li class="userName hidden" id="userName"></li>
+              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
+              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--Receipt Page-->
+      <div class="content">
+        <!--Top-->
+        <h2 class="receiptHeader1">Thank You For Your Order</h2>
+        <h2 class="receiptHeader2">Your order has been placed!</h2>
+        <div style="width: 250px; margin: auto;">
+          <button id="printReceipt" class="submitbtn" onclick="" type="button">Print Receipt</button>
+        </div>
+        <hr>
+        <!--Bottom-->
+        <div class="cart-container container">
+          <!--Order Info-->
+          <div class="cartList">
+
+            <!--Order Number-->
+            <div class="infoBox">
+              <p class="orderNumberHeader">Order Number:
+                <span id="orderNumber">1234567890</span>
+              </p>
+            </div>
+
+            <!--Delivery Details-->
+            <div class="infoBox">
+              <h2 class="infoTitle">Delivery Details</h2>
+              <div class="infoDetails">
+                <p class="textReceiptHeader">Delivery Address:</p>
+                <p class="textReceiptInfo">First Last Name</p>
+                <p class="textReceiptInfo">Address 1: 123 MainSt.</p>
+                <p class="textReceiptInfo">Adress 2: San Jose, CA, 95115</p>
+                <p class="textReceiptHeader">Delivery Options:
+                  <span id="orderOption" class="textReceiptInfo">Standard</span>
+                </p>
+              </div>
+            </div>
+
+            <!--Order Summary-->
+            <div class="infoBox" id="cartListReceipt">
+              <h2 class="infoTitle" style="margin-bottom: 0px;">Order Summary</h2>
+              <label class="col-lg-4 col-md-4 col-xs-4" style="border-Bottom: 1px solid black;">Item</label>
+              <label class="col-lg-4 col-md-4 col-xs-4" style="text-align: center; border-Bottom: 1px solid black;">Price</label>
+              <label class="col-lg-4 col-md-4 col-xs-4" style="text-align: center; border-Bottom: 1px solid black;">Quantity</label>
+              <!--list of items will be load here-->
+            </div>
+
+            <!--Payment Details-->
+            <div class="infoBox">
+              <h2 class="infoTitle">Payment Details</h2>
+              <div class="infoDetails">
+                <p class="textReceiptHeader">Payment Type:
+                  <span id="paymentType" class="textReceiptInfo">Visa</span>
+                </p>
+                <p class="textReceiptHeader">Card Number:
+                  <span id="cardNumber" class="textReceiptInfo">**** **** **** ****</span>
+                </p>
+                <p class="textReceiptHeader">Name on Card:
+                  <span id="cardName" class="textReceiptInfo">Mario</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <!--Cart Summary-->
+          <div class="cartSummaryReceipt">
+            <h2 class="cartSummaryHeader">Cart Summary</h2>
+            <div id="itemNumber" class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Items (0)</div>
+            <div id="cartPrice"class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
+            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Discounts</div>
+            <div id="discounts"class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">10%</div>
+            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Taxes</div>
+            <div id="taxes"class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
+            <div class="col-lg-12 col-md-12 col-xs-12" style="border-bottom: 1px solid #707070;"></div>
+            <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Total</div>
+            <div id="totalPrice" class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
+          </div>
+        </div>
+
+        <!--BacktoHome-->
+        <div class="container">
+          <button class="backHomebtn">
+            <a href="./Home.html" class="backHome">Continue Shopping &#8250;</a>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Footer-->
+    <footer>
+      <hr style="margin-bottom: 80px;">
+      <div class="footer">
+        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="./js/firebase-auth.js"></script>
+  </body>
+</html>
