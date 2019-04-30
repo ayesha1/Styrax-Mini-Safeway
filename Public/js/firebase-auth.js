@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  console.log(firebase.auth());
+  console.log(firebase);
   const auth = firebase.auth();
   const db = firebase.firestore();
   console.log(db);
@@ -30,11 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
           if (window.location.href.includes("Home.html")) {
             document.getElementById("userName").classList.remove("hidden");
             document.getElementById("userName").innerHTML = "Hi " + userInfo.name + "!";
-            document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
           }
-
+          document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
         }).catch(function(error) {
-          window.alert(error.code, error.message);
+          console.error(error.code + ": " + error.message);
         });
 
       } else {
@@ -45,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("signUp").classList.remove("hidden");
         if (window.location.href.includes("Home.html")) {
           document.getElementById("userName").classList.add("hidden");
-          document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
           // loadHomeContent();
         }
+        document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
       }
 
       if (window.location.href.includes('Home.html')) {
@@ -68,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } else if (window.location.href.includes('ItemsList.html')) {
         loadItemList();
+      } else if (window.location.href.includes("Item.html")) {
+        loadSingleItem();
       }
     } else {
 
@@ -141,6 +142,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+var loadSingleItem = function () {
+  const params = getUrlVars();
+  const db = firebase.firestore();
+  const productsRef = db.collection('products');
+  let currentItem = params.i;
+  console.log(currentItem);
+
+  productsRef.doc(currentItem).get()
+  .then(itemDoc => {
+    if (itemDoc.exists) {
+      let item = itemDoc.data();
+      $('#itemName').text(item.name);
+      $('#itemPrice').text("$" + item.originalPrice.toFixed(2));
+      $('#itemImg').attr("src", item.imageUrl);
+      $('#addCart').on('click', function() {
+        addItemToCart(item);
+      })
+    }
+  })
+  .catch(error => {
+    window.alert(error.code + ": " + error.message);
+  });
+}
+
 var loadHistory = function () {
   const auth = firebase.auth();
   const db = firebase.firestore();
@@ -197,7 +222,7 @@ var loadHistory = function () {
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-    vars[key] = value.replace("%20", " ");
+    vars[key] = value.split("%20").join(" ").split("%E2%80%99").join("’");
   });
   return vars;
 }
