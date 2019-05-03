@@ -210,26 +210,28 @@
     form.submit();
   }
 
-
+  card.addEventListener('change', function(event) {
+    document.getElementById('cartCheckout').disabled = false
+  });
   // Checks if it's not empty
-  function checkform()
-    {
-        console.log(stripe.elements);
-        // var paymentForm = document.forms['theform'];
-
-        var f = document.forms["theform"].getElementsByTagName('input');
-        var cansubmit = true;
-
-        for (var i = 0; i < f.length; i++) {
-            if (!f[i].checkValidity()) {
-              cansubmit = false
-            }
-        }
-
-        if (cansubmit) {
-            document.getElementById('cartCheckout').disabled = !cansubmit;
-        }
-    }
+  // function checkform()
+  //   {
+  //       console.log(stripe.elements);
+  //       // var paymentForm = document.forms['theform'];
+  //
+  //       var f = document.forms["theform"].getElementsByTagName('input');
+  //       var cansubmit = true;
+  //
+  //       for (var i = 0; i < f.length; i++) {
+  //           if (!f[i].checkValidity()) {
+  //             cansubmit = false
+  //           }
+  //       }
+  //
+  //       if (cansubmit) {
+  //           document.getElementById('cartCheckout').disabled = !cansubmit;
+  //       }
+  //   }
   </script>
   <script src="./js/firebase-auth.js" charset="utf-8"></script>
 </body>
