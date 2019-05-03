@@ -49,6 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
       }
 
+      $('#nameSearch').submit(e => {
+        e.preventDefault();
+      })
+
       if (window.location.href.includes('Home.html')) {
         loadHomeContent();
       } else if (window.location.href.includes('Cart.html')) {
@@ -142,6 +146,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+
+function setUrlParameter(url, k, val) {
+  let key = encodeURIComponent(k),
+    value = encodeURIComponent(val);
+
+  let baseUrl = url.split('?')[0],
+    newParam = key + '=' + value,
+    params = '?' + newParam;
+
+  if (url.split('?')[1] == undefined){
+    urlQueryString = '';
+  } else {
+    urlQueryString = '?' + url.split('?')[1];
+  }
+
+  if (urlQueryString) {
+    let updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+    let removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+
+    if (typeof value === 'undefined' || value === null || value === "") {
+      params = urlQueryString.replace(removeRegex, "$1");
+      params = params.replace(/[&;]$/, "");
+
+    } else if (urlQueryString.match(updateRegex) !== null) {
+      params = urlQueryString.replace(updateRegex, "$1" + newParam);
+    } else if (urlQueryString == "") {
+      params = '?' + newParam;
+    } else {
+      params = urlQueryString + '&' + newParam;
+    }
+  }
+
+  params = params === '?' ? '' : params;
+
+  return baseUrl + params;
+}
+
+var searchByName = function addSearchToUrl() {
+  console.log(window.location.href)
+  console.log(window.location.search);
+  let searchText = document.getElementById('searchkeywords').value;
+  window.location.href = setUrlParameter(window.location.href, "q", searchText);
+}
+
 var loadSingleItem = function () {
   const params = getUrlVars();
   const db = firebase.firestore();
@@ -229,10 +277,17 @@ function getUrlVars() {
 
 var loadItemList = function () {
   const urlParams = getUrlVars();
+  let searchParam;
+  let searchFlag = true;
+  if (urlParams.q) {
+    searchParam = urlParams.q.toLowerCase();
+  } else {
+    searchFlag = false;
+  }
+
   const db = firebase.firestore();
   const productsRef = db.collection('products');
   let currentAisle = urlParams.a;
-
   console.log(urlParams);
   let i = 0;
   productsRef.where("aisle", "==", currentAisle).get()
@@ -242,22 +297,24 @@ var loadItemList = function () {
         // console.log(itemDoc.data());
         let item = itemDoc.data();
 
-        $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
-        $(("#" + ("item" + i))).append(
-          $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
-          $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
-          $('<button class="addbtn" onlick="">').text("Add")
-          .on('click', function() {
-            addItemToCart(item);
-          })
-        );                                                                                    //add item onclick="addfunction"
-        $(("#" + ("link" + i))).append(
-          $('<img class="itemImg img-responsive">').attr(
-            {"src": item.imageUrl, "alt" : item.name}
-          ),        //retrieve item image here
-          $('<h4 class="itemName">').text(item.name)
-        );
-        i++;
+        if (!searchFlag || item.name.toLowerCase().includes(searchParam)) {
+          $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
+          $(("#" + ("item" + i))).append(
+            $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
+            $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
+            $('<button class="addbtn" onlick="">').text("Add")
+            .on('click', function() {
+              addItemToCart(item);
+            })
+          );                                                                                    //add item onclick="addfunction"
+          $(("#" + ("link" + i))).append(
+            $('<img class="itemImg img-responsive">').attr(
+              {"src": item.imageUrl, "alt" : item.name}
+            ),        //retrieve item image here
+            $('<h4 class="itemName">').text(item.name)
+          );
+          i++;
+        }
       }
     })
   })
@@ -508,6 +565,14 @@ var retrieveCart = function () {
 };
 
 var loadHomeContent = function loadHomeContent() {
+  const urlParams = getUrlVars();
+  let searchParam;
+  let searchFlag = false;
+  if (urlParams.q) {
+    searchParam = urlParams.q.toLowerCase();
+    searchFlag = true;
+  }
+
   let i = 0;
   let productsRef = firebase.firestore().collection("products").limit(20)
   .get().then(querySnapshot => {
@@ -515,22 +580,24 @@ var loadHomeContent = function loadHomeContent() {
       let item = doc.data();
       // console.log(item);
       // console.log(doc.id + ": ", doc.data());
-      $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
-      $(("#" + ("item" + i))).append(
-        $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
-        $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
-        $('<button class="addbtn" id="addItem' + i + '" onlick="addItemToCart(' + i + ')">').text("Add")
-      );                                                                                    //add item onclick="addfunction"
-      $(("#" + ("link" + i))).append(
-        $('<img class="itemImg img-responsive">').attr(
-          {"src": item.imageUrl, "alt" : ("item"+i)}),        //retrieve item image here
-          $('<h4 class="itemName">').text(item.name)
-      );
+      if (!searchFlag || item.name.toLowerCase().includes(searchParam)) {
+        $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));
+        $(("#" + ("item" + i))).append(
+          $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
+          $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
+          $('<button class="addbtn" id="addItem' + i + '" onlick="addItemToCart(' + i + ')">').text("Add")
+        );                                                                                    //add item onclick="addfunction"
+        $(("#" + ("link" + i))).append(
+          $('<img class="itemImg img-responsive">').attr(
+            {"src": item.imageUrl, "alt" : ("item"+i)}),        //retrieve item image here
+            $('<h4 class="itemName">').text(item.name)
+        );
 
-      $('#' + ('addItem' + i)).on('click', function () {
-        addItemToCart(item);
-      })
-      i++;
+        $('#' + ('addItem' + i)).on('click', function () {
+          addItemToCart(item);
+        })
+        i++;
+      }
     })
   }).catch(error => {
     window.alert(error.code + ": " + error.message);
