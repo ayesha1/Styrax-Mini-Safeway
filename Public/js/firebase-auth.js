@@ -187,7 +187,13 @@ var searchByName = function addSearchToUrl() {
   console.log(window.location.href)
   console.log(window.location.search);
   let searchText = document.getElementById('searchkeywords').value;
-  window.location.href = setUrlParameter(window.location.href, "q", searchText);
+  
+  let baseUrl = window.location.href;
+  if (baseUrl.includes("Aisles.html")) {
+    baseUrl = baseUrl.slice(0, baseUrl.indexOf("Aisles.html")).concat("Home.html");
+  }
+
+  window.location.href = setUrlParameter(baseUrl, "q", searchText);
 }
 
 var loadSingleItem = function () {
@@ -215,6 +221,14 @@ var loadSingleItem = function () {
 }
 
 var loadHistory = function () {
+  const urlParams = getUrlVars();
+  let searchParam;
+  let searchFlag = false;
+  if (urlParams.q) {
+    searchParam = urlParams.q.toLowerCase();
+    searchFlag = true;
+  }
+
   const auth = firebase.auth();
   const db = firebase.firestore();
   const historiesRef = db.collection('history');
@@ -238,23 +252,25 @@ var loadHistory = function () {
               console.log(itemDoc.data());
               let item = itemDoc.data();
 
-              $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
-              $(("#" + ("item" + i))).append(
-                $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
-                $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
-                $('<button class="addbtn" onlick="">').text("Add")
-                .on('click', function() {
-                  addItemToCart(item);
-                })
-              );                                                                                    //add item onclick="addfunction"
-              $(("#" + ("link" + i))).append(
-                $('<img class="itemImg img-responsive">').attr(
-                  {"src": item.imageUrl, "alt" : item.name}
-                ),        //retrieve item image here
-                $('<h4 class="itemName">').text(item.name)
-              );
+              if (!searchFlag || item.name.toLowerCase().includes(searchParam)) {
+                $('#aisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
+                $(("#" + ("item" + i))).append(
+                  $('<a class="itemLink">').attr({"href": ("./Item.html?i=" + item.name), "id": ("link" + i)}),         //link to Item i?
+                  $('<h5 class="itemPrice">').text("$" + item.originalPrice.toFixed(2)),                                         //retrieve Item Price at "$1.00"
+                  $('<button class="addbtn" onlick="">').text("Add")
+                  .on('click', function() {
+                    addItemToCart(item);
+                  })
+                );                                                                                    //add item onclick="addfunction"
+                $(("#" + ("link" + i))).append(
+                  $('<img class="itemImg img-responsive">').attr(
+                    {"src": item.imageUrl, "alt" : item.name}
+                  ),        //retrieve item image here
+                  $('<h4 class="itemName">').text(item.name)
+                );
 
-              i++;
+                i++;
+              }
             }
           })
         }
