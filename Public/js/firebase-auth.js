@@ -187,7 +187,13 @@ var searchByName = function addSearchToUrl() {
   console.log(window.location.href)
   console.log(window.location.search);
   let searchText = document.getElementById('searchkeywords').value;
-  window.location.href = setUrlParameter(window.location.href, "q", searchText);
+  
+  let baseUrl = window.location.href;
+  if (baseUrl.includes("Aisles.html")) {
+    baseUrl = baseUrl.slice(0, baseUrl.indexOf("Aisles.html")).concat("Home.html");
+  }
+
+  window.location.href = setUrlParameter(baseUrl, "q", searchText);
 }
 
 var loadSingleItem = function () {
