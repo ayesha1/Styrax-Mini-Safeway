@@ -267,9 +267,13 @@ var loadHistory = function () {
                   $('<img class="itemImg img-responsive">').attr(
                     {"src": item.imageUrl, "alt" : item.name}
                   ),        //retrieve item image here
-                  $('<h4 class="itemName">').text(item.name)
+                  $('<div style="overflow: hidden;">').attr("id", ("div"+i))
                 );
-
+                var itemName = $('<h4 class="itemName">');
+                itemName.text(item.name);
+                itemName.attr("id", ("itemName"+i));
+                $(("#"+("div"+i))).append(itemName);
+                hoverLongName(i);
                 i++;
               }
             }
@@ -328,8 +332,13 @@ var loadItemList = function () {
             $('<img class="itemImg img-responsive">').attr(
               {"src": item.imageUrl, "alt" : item.name}
             ),        //retrieve item image here
-            $('<h4 class="itemName">').text(item.name)
+            $('<div style="overflow: hidden;">').attr("id", ("div"+i))
           );
+          var itemName = $('<h4 class="itemName">');
+          itemName.text(item.name);
+          itemName.attr("id", ("itemName"+i));
+          $(("#"+("div"+i))).append(itemName);
+          hoverLongName(i);
           i++;
         }
       }
@@ -607,18 +616,40 @@ var loadHomeContent = function loadHomeContent() {
         $(("#" + ("link" + i))).append(
           $('<img class="itemImg img-responsive">').attr(
             {"src": item.imageUrl, "alt" : ("item"+i)}),        //retrieve item image here
-            $('<h4 class="itemName">').text(item.name)
+            $('<div style="overflow: hidden;">').attr("id", ("div"+i))
         );
 
         $('#' + ('addItem' + i)).on('click', function () {
           addItemToCart(item);
         })
+
+        var itemName = $('<h4 class="itemName">');
+        itemName.text(item.name);
+        itemName.attr("id", ("itemName"+i));
+        $(("#"+("div"+i))).append(itemName);
+        hoverLongName(i);
         i++;
       }
     })
   }).catch(error => {
     window.alert(error.code + ": " + error.message);
   });
+}
+
+//Cover long name and show when hover
+function hoverLongName(i){
+  var item = $('#' + ('itemName' + i));
+  var canvas = item.canvas || (item.canvas = document.createElement("canvas"));
+  var cxt = canvas.getContext("2d");
+  var x = cxt.measureText(item.text()).width - (81/1.5);
+  // console.log(item.text() +", "+ cxt.measureText(item.text()).width +", "+ x);
+  if(cxt.measureText(item.text()).width > 81 && !window.matchMedia("(maxwidth: 768px)").matches){
+    item.hover( function(){
+      item.css({"transition":"3s", "transform": ("translateX(-" + x + "%)")});
+    }, function(){
+      item.css({"transition":"1s", "transform": "translateX(0%)"})
+    });
+  }
 }
 
 function handleLogin(){
