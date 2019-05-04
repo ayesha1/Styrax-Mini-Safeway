@@ -115,6 +115,8 @@ button:hover.navbar-toggle{background: #ff8080;}
     border: solid 2.5px #ff5d5d;
     border-radius: 5px;
 }
+
+
 .submitbtn{
     color: white;
     font-size: 25px;
@@ -126,6 +128,38 @@ button:hover.navbar-toggle{background: #ff8080;}
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+}
+
+.submitbtn1 {
+  color: white;
+  font-size: 25px;
+  background: #ff5d5d;
+  width: 75%;
+  height: 40px;
+  border-radius: 5px;
+  margin: 12px 33px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+.submitbtn1:hover {
+  border-radius: 10px;
+  box-shadow: 0 0px 16px 0 rgba(0,0,0,0.24),0 0px 50px 0 rgba(0,0,0,0.19);
+}
+
+.submitbtn1:disabled,
+.submitbtn1[disabled=disabled]{
+  background: #cccccc;
+  color: white;
+  font-size: 25px;
+  width: 75%;
+  height: 40px;
+  border-radius: 5px;
+  margin: 12px 33px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
 }
 .submitbtn:hover{
     border-radius: 10px;

@@ -94,16 +94,16 @@
       <div class="content">
         <div class="payment-container container">
           <!--credit card info-->
-          <form class="creditcardInfo"  id="payment-form">
+          <form name="theform" class="creditcardInfo"  id="payment-form">
             <h2 style="height:39.5px; font-size: 34px; font-weight: bold;">Payment details</h2>
             <p style="color: #707070; position: relative; bottom: 10px; ">Enter your credit card details.</p>
             <div class="" id="name">
               <label for="cardName" class="">Cardholder Name</label><br>
-              <input class="inputbox" type="" id="cardName" placeholder="Enter cardholder name" required>
+              <input class="inputbox" type="" id="cardName" placeholder="Enter cardholder name" onKeyup="checkform()">
             </div>
             <div class="creditcardInfo-container" id ="card-element">
               <label for="cardNumber" class="creditcardInfo-label">Card Number</label><br>
-              <input class="inputbox" type="" id="cardNumber" placeholder="Enter card number" required>
+              <input class="inputbox" type="" id="cardNumber" placeholder="Enter card number" onKeyup="checkform()" >
             </div>
 
             <div id="card-errors" role="alert"></div>
@@ -123,7 +123,7 @@
             <div class="col-lg-12 col-md-12 col-xs-12" style="border-bottom: 1px solid #707070;"></div>
             <div class="col-lg-6 col-md-6 col-xs-6 cartSummaryLabel">Total</div>
             <div id="totalPrice" class="col-lg-6 col-md-6 col-xs-6 cartSummaryPrice">$00.00</div>
-            <button id="cartCheckout" class="submitbtn" type="submit">SUBMIT</button>
+            <button id="cartCheckout" class="submitbtn1" type="submit" value="Submit" disabled="disabled">SUBMIT</button>
           </div>
         </div>
       </div>
@@ -138,12 +138,12 @@
   </footer>
 
   <script>
+  var paymentForm = document.forms['theform'];
   // Create a Stripe client.
   var stripe = Stripe('pk_test_EKtFrmR4058ZQ2KjVIxRWdHi001Gv8oRnR');
 
   // Create an instance of Elements.
   var elements = stripe.elements();
-
   // Custom styling can be passed to options when creating an Element.
   // (Note that this demo uses a wider set of styles than the guide below.)
   var style = {
@@ -200,6 +200,7 @@
     // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('payment-form');
     var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('required', "");
     hiddenInput.setAttribute('type', 'hidden');
     hiddenInput.setAttribute('name', 'stripeToken');
     hiddenInput.setAttribute('value', token.id);
@@ -208,6 +209,29 @@
     // Submit the form
     form.submit();
   }
+
+  card.addEventListener('change', function(event) {
+    document.getElementById('cartCheckout').disabled = false
+  });
+  // Checks if it's not empty
+  // function checkform()
+  //   {
+  //       console.log(stripe.elements);
+  //       // var paymentForm = document.forms['theform'];
+  //
+  //       var f = document.forms["theform"].getElementsByTagName('input');
+  //       var cansubmit = true;
+  //
+  //       for (var i = 0; i < f.length; i++) {
+  //           if (!f[i].checkValidity()) {
+  //             cansubmit = false
+  //           }
+  //       }
+  //
+  //       if (cansubmit) {
+  //           document.getElementById('cartCheckout').disabled = !cansubmit;
+  //       }
+  //   }
   </script>
   <script src="./js/firebase-auth.js" charset="utf-8"></script>
 </body>
