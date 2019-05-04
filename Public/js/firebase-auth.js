@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (window.location.href.includes('Aisles.html')) {
         populateAisles();
       } else if (window.location.href.includes('PaymentPage.html')) {
+        retrieveCart();
         $('#cartCheckout').on('click', function() {
           addCartToHistory();
         })
@@ -187,7 +188,7 @@ var searchByName = function addSearchToUrl() {
   console.log(window.location.href)
   console.log(window.location.search);
   let searchText = document.getElementById('searchkeywords').value;
-  
+
   let baseUrl = window.location.href;
   if (baseUrl.includes("Aisles.html")) {
     baseUrl = baseUrl.slice(0, baseUrl.indexOf("Aisles.html")).concat("Home.html");
