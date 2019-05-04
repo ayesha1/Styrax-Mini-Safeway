@@ -40,26 +40,6 @@ and open the template in the editor.
     <!-- WebStyle Functions -->
     <script defer src="./js/webstyle.js"></script>
 
-    <script>
-      $(document).ready(function () {
-        for(var i=0; i < 3; i++){
-          $('#cartListReceipt').append($('<div class="itemCart">').attr("id" , ("item"+i)));
-          $(("#"+ ("item"+i))).append(
-            $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),
-            $('<h5 class="itemPriceCart">').text("$" + "1.00"),
-            $('<h5 class="itemQuantity">').text("2")//display chosen quantity for each item
-          );
-          $(("#" + ("link" + i))).append(
-            $('<img class="itemImgCart img-responsive">').attr({
-              "src": "http://placehold.it/500/ffffff/bbb&text=1",
-              "alt": ("item"+i)
-            }),
-            $('<h4 class="itemName">').text(("item"+i))
-          );
-        }
-      });
-    </script>
-
   </head>
 
   <body>
@@ -104,7 +84,7 @@ and open the template in the editor.
             <!--Order Number-->
             <div class="infoBox">
               <p class="orderNumberHeader">Order Number:
-                <span id="orderNumber">1234567890</span>
+                <span id="orderNumber"></span>
               </p>
             </div>
 
@@ -113,9 +93,9 @@ and open the template in the editor.
               <h2 class="infoTitle">Delivery Details</h2>
               <div class="infoDetails">
                 <p class="textReceiptHeader">Delivery Address:</p>
-                <p class="textReceiptInfo">First Last Name</p>
-                <p class="textReceiptInfo">Address 1: 123 MainSt.</p>
-                <p class="textReceiptInfo">Adress 2: San Jose, CA, 95115</p>
+                <p class="textReceiptInfo"></p>
+                <p class="textReceiptInfo" id="receiptAddr1"></p>
+                <!-- <p class="textReceiptInfo" id="receiptAddr2">San Jose, CA 95115</p> -->
                 <p class="textReceiptHeader">Delivery Options:
                   <span id="orderOption" class="textReceiptInfo">Standard</span>
                 </p>
@@ -139,10 +119,10 @@ and open the template in the editor.
                   <span id="paymentType" class="textReceiptInfo">Visa</span>
                 </p>
                 <p class="textReceiptHeader">Card Number:
-                  <span id="cardNumber" class="textReceiptInfo">**** **** **** ****</span>
+                  <span id="cardNumber" class="textReceiptInfo"></span>
                 </p>
                 <p class="textReceiptHeader">Name on Card:
-                  <span id="cardName" class="textReceiptInfo">Mario</span>
+                  <span id="cardName" class="textReceiptInfo"></span>
                 </p>
               </div>
             </div>

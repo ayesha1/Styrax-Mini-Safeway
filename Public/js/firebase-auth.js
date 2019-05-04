@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("userName").classList.add("hidden");
           // loadHomeContent();
         }
-        document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
+        // document.getElementById("guest_message").innerHTML = "Sign In and Receive Online Discounts!";
+        $('#guest_message').text("Sign In and Receive Online Discounts!")
       }
 
       $('#nameSearch').submit(e => {
@@ -74,6 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
         loadItemList();
       } else if (window.location.href.includes("Item.html")) {
         loadSingleItem();
+      } else if (window.location.href.includes("OrderReceipt.html")) {
+        loadReceipt();
       }
     } else {
 
@@ -146,6 +149,84 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 });
+
+var loadReceipt = function() {
+  const urlParams = getUrlVars();
+  if (!urlParams.r) {
+    window.alert("Error: no specified receipt to display.");
+    return;
+  }
+  let receiptId = urlParams.r;
+  const db = firebase.firestore();
+  const receiptsRef = db.collection('receipts');
+
+  let itemList = [];
+
+  let i = 0;
+  receiptsRef.doc(receiptId).get()
+  .then(receiptDoc => {
+    if (receiptDoc.exists) {
+      let receipt = receiptDoc.data();
+      console.log("Receipt loaded", receipt);
+
+      $('#orderNumber').text(receiptDoc.id);
+      $('#receiptAddr1').text(
+        receipt.billingInfo.address.street + ", " +
+        receipt.billingInfo.address.city + " " +
+        receipt.billingInfo.address.state + " " +
+        receipt.billingInfo.address.zip
+      );
+      let paymentCard = receipt.billingInfo.card;
+      $('#cardNumber').text("**** **** **** " + paymentCard.number.substring(paymentCard.number.length - 4));
+      $('#cardName').text(paymentCard.name);
+
+      let cart = receipt.cart;
+      for (let name in cart) {
+        let cartItem = cart[name];
+        cartItem.ref.get()
+        .then(itemDoc => {
+          if (itemDoc.exists) {
+            let item = itemDoc.data();
+            console.log(item, itemDoc);
+
+            itemList.push({
+              price: item.originalPrice,
+              count: cartItem.count
+            });
+
+            $('#cartListReceipt').append($('<div class="itemCart">').attr("id" , ("item"+i)));
+            $(("#"+ ("item"+i))).append(
+              $('<a class="itemLink">').attr({"href": "./Item.html?i=" + item.name, "id": ("link" + i)}),
+              $('<h5 class="itemPriceCart">').text("$" + item.originalPrice.toFixed(2)),
+              $('<h5 class="itemQuantity">').text(cartItem.count)//display chosen quantity for each item
+            );
+            $(("#" + ("link" + i))).append(
+              $('<img class="itemImgCart img-responsive">').attr({
+                "src": item.imageUrl,
+                "alt": item.name
+              }),
+              $('<h4 class="itemName">').text(item.name)
+            );
+          }
+          i++;
+        })
+        .then(function() {
+          updateCartSummary(itemList);
+        })
+        .catch(error => {
+          window.alert(error.code + ": " + error.message);
+        })
+      }
+
+    }
+  })
+  .then(function() {
+    updateCartSummary(itemList);
+  })
+  .catch(error => {
+    window.alert(error.code + ": " + error.message);
+  });
+}
 
 function setUrlParameter(url, k, val) {
   let key = encodeURIComponent(k),
@@ -613,38 +694,40 @@ var retrieveCart = function () {
       }
     }
   })
-
-  function updateCartSummary(list) {
-    let totalCost = 0.00,
-        discountedTotal = 0.00,
-        discounts = 0.00,
-        tax = 0.00,
-        subtotal = 0.00,
-        discount = 0.00;
-
-    const taxRate = 0.09;
-
-    for (item of list) {
-      totalCost += item.price * item.count;
-    }
-
-    if (!auth.currentUser.isAnonymous) {
-      discount = 0.10;
-    }
-
-    discountAmount = totalCost * discount;
-    discountedTotal = totalCost - discountAmount;
-    tax = discountedTotal * taxRate;
-    subtotal = discountedTotal + tax;
-
-    // console.log(totalCost);
-    $('#cartPrice').text("$" + totalCost.toFixed(2));
-    $('#discounts').text((discount * 100) + "% (-$" + discountAmount.toFixed(2) + ")");
-    $('#taxes').text("+$" + tax.toFixed(2));
-    $('#totalPrice').text("$" + subtotal.toFixed(2));
-
-  }
 };
+
+var updateCartSummary = function updateCartSummary(list) {
+  const auth = firebase.auth();
+  
+  let totalCost = 0.00,
+      discountedTotal = 0.00,
+      discounts = 0.00,
+      tax = 0.00,
+      subtotal = 0.00,
+      discount = 0.00;
+
+  const taxRate = 0.09;
+
+  for (item of list) {
+    totalCost += item.price * item.count;
+  }
+
+  if (!auth.currentUser.isAnonymous) {
+    discount = 0.10;
+  }
+
+  discountAmount = totalCost * discount;
+  discountedTotal = totalCost - discountAmount;
+  tax = discountedTotal * taxRate;
+  subtotal = discountedTotal + tax;
+
+  // console.log(totalCost);
+  $('#cartPrice').text("$" + totalCost.toFixed(2));
+  $('#discounts').text((discount * 100) + "% (-$" + discountAmount.toFixed(2) + ")");
+  $('#taxes').text("+$" + tax.toFixed(2));
+  $('#totalPrice').text("$" + subtotal.toFixed(2));
+
+}
 
 var loadHomeContent = function loadHomeContent() {
   const urlParams = getUrlVars();
