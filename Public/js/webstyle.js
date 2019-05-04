@@ -19,6 +19,8 @@ function activeMainOpt(){
   var elt;
   if(window.location.href.includes("MyPurchases.html")){
     elt = $('#MyPurchasesOpt');
+    elt.removeAttr("href");
+    elt.css("cursor","default");
   }else{
     elt = $('#AislesOpt');
   }
@@ -41,13 +43,12 @@ function MainOptHover(){
     elt1 = $('#AislesOpt');
     elt2 = $('#MyPurchasesOpt');
   }
-  elt2.mouseover( function(){
+  elt2.hover( function(){
     elt1.attr("href","./Aisles.html");
     elt1.addClass("mainOptions");
     elt1.removeClass("AisleHeading");
-  });
-  elt2.mouseout( function(){
-    if(window.location.href.includes("Aisles.html")){
+  }, function(){
+    if(window.location.href.includes("Aisles.html") || window.location.href.includes("MyPurchases.html")){
       elt1.removeAttr("href");
     }
     elt1.removeClass("mainOptions");
@@ -75,7 +76,7 @@ function backToTopScroll() {
     } else{
       $("#backToTop").fadeOut();
     }
-  };
+}
 
 //Scroll Top function: slowly scroll to top of page when Back To Top Button is clicked
 function backToTopClick(){
