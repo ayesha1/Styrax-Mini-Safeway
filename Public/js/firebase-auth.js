@@ -147,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-
 function setUrlParameter(url, k, val) {
   let key = encodeURIComponent(k),
     value = encodeURIComponent(val);
@@ -353,7 +352,9 @@ var addCartToHistory = function () {
   const auth = firebase.auth();
   const db = firebase.firestore();
   const cartsRef = db.collection('carts');
+  const usersRef = db.collection('users');
   const historyRef = db.collection('history');
+  const receiptsRef = db.collection('receipts');
 
   let newHistory = {
     items: {}
@@ -364,6 +365,61 @@ var addCartToHistory = function () {
     if (doc.exists) {
       let cart = doc.data().items;
       console.log(cart);
+
+      //
+      // Create Receipt from cart
+      //
+
+      let newReceipt = {
+        user: auth.currentUser.uid,
+        cart: cart,
+        subtotal: 0.00,
+        discounted: !auth.currentUser.isAnonymous,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        billingInfo: {
+          address: {
+            street: "123 S 11th Street",
+            city: "San Jose",
+            state: "CA",
+            country: "United States",
+            zip: "95112"
+          },
+          card: {
+            name: "Ryan Hopper-Lowe",
+            number: "4242424242424242"
+          }
+        }
+      };
+
+      receiptsRef.add(newReceipt)
+      .then(receiptDoc => {
+        console.log("Receipt Created", receiptDoc);
+        if (!auth.currentUser.isAnonymous) {
+
+          usersRef.doc(auth.currentUser.uid)
+          .collection('receipts').doc(receiptDoc.id).set({
+            ref: receiptDoc,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          })
+          .then(function() {
+            console.log("receipt added to registered user: " + auth.currentUser.uid);
+            window.location.href = "./OrderReceipt.html?r=" + receiptDoc.id;
+          })
+          .catch(error => {
+            window.alert(error.code + ": " + error.message);
+          })
+        } else {
+          window.location.href = "./OrderReceipt.html?r=" + receiptDoc.id;
+        }
+      })
+      .catch(error => {
+        window.alert(error.code + ": " + error.message);
+      });
+
+      //
+      //Create History from Cart
+      //
+
       let historyItems = newHistory.items;
 
       for (let name in cart) {
@@ -680,7 +736,8 @@ function registerUser() {
     address: {
       street: document.getElementById("reg_address").value,
       city: document.getElementById("reg_city").value,
-      state: document.getElementById("reg_state").value
+      state: document.getElementById("reg_state").value,
+      zip: document.getElementById("zip_code").value
     }
   };
 
