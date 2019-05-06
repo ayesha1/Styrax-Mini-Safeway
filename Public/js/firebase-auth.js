@@ -832,7 +832,7 @@ function hoverLongName(i){
   var cxt = canvas.getContext("2d");
   var x = cxt.measureText(item.text()).width - (81/1.5);
   // console.log(item.text() +", "+ cxt.measureText(item.text()).width +", "+ x);
-  if(cxt.measureText(item.text()).width > 81 && !window.matchMedia("(maxwidth: 768px)").matches){
+  if(cxt.measureText(item.text()).width > 81 && !window.matchMedia("(max-width: 768px)").matches){
     item.hover( function(){
       item.css({"transition":"3s", "transform": ("translateX(-" + x + "%)")});
     }, function(){
