@@ -56,10 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (window.location.href.includes('Home.html')) {
         loadHomeContent();
+        if (!auth.currentUser.isAnonymous) {
+          $('#modalTrigger').removeAttr('data-toggle');
+          $('#modalTrigger').removeAttr('data-target');
+        }
       } else if (window.location.href.includes('Cart.html')) {
         retrieveCart();
       } else if (window.location.href.includes('Aisles.html')) {
         populateAisles();
+        if (!auth.currentUser.isAnonymous) {
+          $('#MyPurchasesOpt').removeAttr('data-toggle');
+          $('#MyPurchasesOpt').removeAttr('data-target');
+        }
       } else if (window.location.href.includes('PaymentPage.html')) {
         retrieveCart();
         loadCheckoutData();
@@ -74,8 +82,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } else if (window.location.href.includes('ItemsList.html')) {
         loadItemList();
+        if (!auth.currentUser.isAnonymous) {
+          $('#MyPurchasesOpt').removeAttr('data-toggle');
+          $('#MyPurchasesOpt').removeAttr('data-target');
+        }
       } else if (window.location.href.includes("Item.html")) {
         loadSingleItem();
+        if (!auth.currentUser.isAnonymous) {
+          $('#MyPurchasesOpt').removeAttr('data-toggle');
+          $('#MyPurchasesOpt').removeAttr('data-target');
+        }
       } else if (window.location.href.includes("OrderReceipt.html")) {
         loadReceipt();
       }
