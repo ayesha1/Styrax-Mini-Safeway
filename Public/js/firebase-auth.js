@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         populateAisles();
       } else if (window.location.href.includes('PaymentPage.html')) {
         retrieveCart();
+        loadCheckoutData();
         $('#cartCheckout').on('click', function() {
           addCartToHistory();
         })
@@ -150,6 +151,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+var loadCheckoutData = function () {
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const usersRef = db.collection('users');
+
+  if (!auth.currentUser.isAnonymous) {
+    usersRef.doc(auth.currentUser.uid).get()
+    .then(userDoc => {
+      if (userDoc.exists) {
+        let user = userDoc.data();
+        let userInfo = user.userInfo;
+        console.log(user, userDoc);
+
+        $('#cardName').val(userInfo.name);
+        $('#reg_address').val(userInfo.address.street);
+        $('#reg_city').val(userInfo.address.city);
+        $('#reg_state').val(userInfo.address.state);
+        $('#zip_code').val(userInfo.address.zip);
+      }
+    })
+    .catch(error => {
+      window.alert(error.code + ": " + error.message);
+    });
+  }
+}
+
 var loadReceipt = function() {
   const urlParams = getUrlVars();
   if (!urlParams.r) {
@@ -171,11 +198,20 @@ var loadReceipt = function() {
 
       $('#orderNumber').text(receiptDoc.id);
       $('#receiptAddr1').text(
-        receipt.billingInfo.address.street + ", " +
-        receipt.billingInfo.address.city + " " +
+        receipt.billingInfo.card.name
+        // receipt.billingInfo.address.street
+        // receipt.billingInfo.address.city + " " +
+        // receipt.billingInfo.address.state + " " +
+        // receipt.billingInfo.address.zip
+      );
+      $('#receiptAddr2').text(
+        receipt.billingInfo.address.street + " " +
+        receipt.billingInfo.address.city + " "
+      );
+      $('#receiptAddr3').text(
         receipt.billingInfo.address.state + " " +
         receipt.billingInfo.address.zip
-      );
+      )
       let paymentCard = receipt.billingInfo.card;
       $('#cardNumber').text("**** **** **** " + paymentCard.number.substring(paymentCard.number.length - 4));
       $('#cardName').text(paymentCard.name);
@@ -271,7 +307,9 @@ var searchByName = function addSearchToUrl() {
 
   let baseUrl = window.location.href;
   if (baseUrl.includes("Aisles.html")) {
-    baseUrl = baseUrl.slice(0, baseUrl.indexOf("Aisles.html")).concat("Home.html");
+    baseUrl = baseUrl.slice(0, baseUrl.indexOf("Aisles.html")).concat("ItemsList.html");
+  } else if (baseUrl.includes("Home.html")) {
+    baseUrl = baseUrl.slice(0, baseUrl.indexOf("Home.html")).concat("ItemsList.html");
   }
 
   window.location.href = setUrlParameter(baseUrl, "q", searchText);
@@ -388,10 +426,18 @@ var loadItemList = function () {
 
   const db = firebase.firestore();
   const productsRef = db.collection('products');
-  let currentAisle = urlParams.a;
+  let currentAisle = urlParams.a || "all items";
   console.log(urlParams);
   let i = 0;
-  productsRef.where("aisle", "==", currentAisle).get()
+
+  let aisleQueryRef = productsRef;
+  if (currentAisle != "all items") {
+    aisleQueryRef = productsRef.where("aisle", "==", currentAisle);
+  }
+
+  $('.aisleName').text(titleCase(currentAisle));
+
+  aisleQueryRef.get()
   .then(querySnapshot => {
     querySnapshot.forEach(itemDoc => {
       if (itemDoc.exists) {
@@ -459,14 +505,14 @@ var addCartToHistory = function () {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         billingInfo: {
           address: {
-            street: "123 S 11th Street",
-            city: "San Jose",
-            state: "CA",
+            street: document.getElementById("reg_address").value,
+            city: document.getElementById("reg_city").value,
+            state: document.getElementById("reg_state").value,
             country: "United States",
-            zip: "95112"
+            zip: document.getElementById("zip_code").value
           },
           card: {
-            name: "Ryan Hopper-Lowe",
+            name: document.getElementById("cardName").value || "Ryan Hopper-Lowe",
             number: "4242424242424242"
           }
         }
@@ -698,7 +744,7 @@ var retrieveCart = function () {
 
 var updateCartSummary = function updateCartSummary(list) {
   const auth = firebase.auth();
-  
+
   let totalCost = 0.00,
       discountedTotal = 0.00,
       discounts = 0.00,
@@ -706,10 +752,13 @@ var updateCartSummary = function updateCartSummary(list) {
       subtotal = 0.00,
       discount = 0.00;
 
+  let numItems = 0;
+
   const taxRate = 0.09;
 
   for (item of list) {
     totalCost += item.price * item.count;
+    numItems += item.count;
   }
 
   if (!auth.currentUser.isAnonymous) {
@@ -726,6 +775,7 @@ var updateCartSummary = function updateCartSummary(list) {
   $('#discounts').text((discount * 100) + "% (-$" + discountAmount.toFixed(2) + ")");
   $('#taxes').text("+$" + tax.toFixed(2));
   $('#totalPrice').text("$" + subtotal.toFixed(2));
+  $('#itemNumber').text("Items (" + numItems + ")")
 
 }
 
@@ -739,7 +789,7 @@ var loadHomeContent = function loadHomeContent() {
   }
 
   let i = 0;
-  let productsRef = firebase.firestore().collection("products").limit(20)
+  let productsRef = firebase.firestore().collection("products").orderBy("imageUrl").limit(25)
   .get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
       let item = doc.data();
