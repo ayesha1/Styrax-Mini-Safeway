@@ -210,6 +210,47 @@ button:hover.navbar-toggle{background: #ff8080;}
     color: #800000;
     text-decoration: none;
 }
+.modal{
+  position: absolute;
+  top: 300px;
+  z-index: 10040;
+  overflow: auto;
+  overflow-y: auto;
+}
+.modal-dialog{
+  background: white;
+  border: 2px solid #ff5d5d;
+  border-radius: 10px;
+}
+.modalLink:link, .modalLink:visited{
+  font-size: 20px;
+  border-radius: 5px;
+  background: #ff5d5d;
+  color: white;
+  text-decoration: none;
+  margin: auto 5px;
+  padding: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-style: solid;
+  border-left-color: #cccccc;
+  border-top-color: #cccccc;
+  border-right-color: #737373;
+  border-bottom-color: #737373;
+}
+.modalLink:hover{
+  text-decoration: none;
+  border-radius: 10px;
+  box-shadow: 0 0px 16px 0 rgba(0,0,0,0.24),0 0px 50px 0 rgba(0,0,0,0.19);
+}
+.modalLink:active{
+  -webkit-transition: 0s;
+  transition: 0s;
+  border-left-color: #737373;
+  border-top-color: #737373;
+  border-right-color: #cccccc;
+  border-bottom-color: #cccccc;
+}
 .searchborder{
     width: 70%;
     height: 40px;
@@ -507,7 +548,6 @@ input[type=number]::-webkit-outer-spin-button {
   max-width: inherit;
   justify-content: center;
   position: relative;
-  border-left: 1px solid #cccccc;
 }
 
 /*Item Page*/
@@ -633,7 +673,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .textReceiptInfo{
     font-size: 18px;
-    font-weight: lighter;
+    font-weight: normal;
     margin: 0px 0px 5px;
 }
 .itemQuantity{

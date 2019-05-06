@@ -58,6 +58,7 @@ function MainOptHover(){
 
 //scroll function for fixed search bar
 function searchScroll() {
+  // console.log(document.documentElement.scrollTop);
   if(document.documentElement.scrollTop > $("#searchbar").position().top-50
     || document.body.scrollTop > $("#searchbar").position().top-50) {
       $("#searchbar").css({"position": "fixed", "top": "50px", "width": "100%", "left": "0%"});
