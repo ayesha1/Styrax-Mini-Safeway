@@ -124,7 +124,24 @@ and open the template in the editor.
           <p class="message" id="guest_message"></p>
           <img  class="homeImg img-responsive" src="./images/homeStyrax.jpg" alt="Styrax">
           <a href="./Aisles.html" class="mainOptions" title="Visit Our Aisles">Aisles</a>
-          <a href="./MyPurchases.html" class="mainOptions" title="Visit Your Previous Orders">My Purchases</a>
+          <a href="./MyPurchases.html" class="mainOptions" title="Visit Your Previous Orders" data-toggle="modal" data-target="#myModal">My Purchases</a>
+
+          <!--Purchase Modal-->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">Sign In or Sign Up</h4>
+                </div>
+                <div class="modal-body">
+                  <p>To use this feature, you must be a registered user.</p>
+                  <a href="./SignIn.html" class="modalLink" id="signIn">Sign In</a>
+                  <a href="./SignUp.html" class="modalLink" id="signUp">Create an Account</a>
+                </div>
+            </div>
+          </div>
+
           <form id="nameSearch">
             <div id="searchbar-origin-position"></div>
             <div id="searchbar" class="searchborder">
