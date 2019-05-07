@@ -39,83 +39,13 @@ and open the template in the editor.
 
     <!-- WebStyle Functions -->
     <script defer src="./js/webstyle.js"></script>
-
-    <script>
-
-      //Create Aisles with items
-      //***demo***
-      // var aisles = 4;
-      // var items_in_1_row = 5;
-      // var k = 1;
-      // $(document).ready(function () {
-      //   for (var i = 1; i <= aisles; i++) {
-      //     $('#Aisles').append($('<div class="aisle">').attr("id", i));                                    //retrieve aisle name i
-      //     $(("#" + i)).append($('<h3 class="aisleName">').text(("Aisle" + i)));                           //retrieve aisle name i
-      //     for (var j = 0; j < items_in_1_row; j++, k++) {
-      //       $(("#" + i)).append($('<div class="itemCard">').attr("id", ("item" + k)));                  //retrieve item name k
-      //       $(("#" + ("item" + k))).append(
-      //         $('<a class="itemLink">').attr({"href": ("link" + k), "id": ("link" + k)}),         //link to Item k?
-      //         $('<h5 class="itemPrice">').text("$01.00"),                                          //retrieve Item Price at "$1.00"
-      //         $('<button class="addbtn" onlick="">').text("Add")
-      //       );                                //add item onclick="addfunction"
-      //       $(("#" + ("link" + k))).append(
-      //         $('<img class="itemImg img-responsive">').attr(
-      //           {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+k)}),        //retrieve item image here
-      //           $('<h4 class="itemName">').text(("item" + k))
-      //         );                                     //retrieve item name k
-      //       }
-      //       var link = $('<a class="seeMoreLink">');
-      //       link.text("See More");
-      //       $(("#" + i)).append(link.attr("href", ""));                                                     //link to Aisle?
-      //     }
-      // });
-
-      //Create List of Items
-      //***demo***
-      // var NumberOfItems = 20;
-      // $(document).ready(function() {
-      //   for(var i = 0; i < NumberOfItems; i++){
-      //     $('#PopularAisle').append($('<div class="itemCard">').attr("id", ("item" + i)));             //retrieve item name i
-      //     // $(("#" + ("item" + i))).append(
-      //     //   $('<a class="itemLink">').attr({"href": ("link" + i), "id": ("link" + i)}),         //link to Item i?
-      //     //   $('<h5 class="itemPrice">').text("$01.00"),                                         //retrieve Item Price at "$1.00"
-      //     //   $('<button class="addbtn" onlick="">').text("Add")
-      //     // );                                                                                    //add item onclick="addfunction"
-      //     // $(("#" + ("link" + i))).append(
-      //     //   $('<img class="itemImg img-responsive">').attr(
-      //     //     {"src": "http://placehold.it/500/ffffff/bbb&text=1", "alt" : ("item"+i)}),        //retrieve item image here
-      //     //     $('<h4 class="itemName">').text(("item" + i))
-      //     // );
-      //   }
-      // });
-
-    </script>
   </head>
 
   <body>
     <div class="main">
       <!--Header-->
-      <nav class="navbar navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNav">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
-              <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
-              <li class="userName hidden" id="userName"></li>
-              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <!-- Navbar -->
+      <div id="styrax-nav"></div>
 
       <!--Home Page-->
       <div class="content">
@@ -141,14 +71,7 @@ and open the template in the editor.
                 </div>
             </div>
           </div>
-
-          <form id="nameSearch">
-            <div id="searchbar-origin-position"></div>
-            <div id="searchbar" class="searchborder">
-              <input class="searchtext" type="text" id="searchkeywords" name="searchbar" placeholder="Enter search item...">
-              <button class="searchbtn" onclick="searchByName()" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-          </form>
+          <div id="styrax-searchbar"></div>
         </div>
         <hr>
         <!--Bottom-->
@@ -161,14 +84,10 @@ and open the template in the editor.
       </div>
     </div>
     <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
-    <!--Footer-->
-    <footer>
-      <hr style="margin-bottom: 80px;">
-      <div class="footer">
-        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
-      </div>
-    </footer>
 
+    <!--Footer-->
+    <div id="styrax-footer"></div>
+    <script src="./components/components.js"></script>
     <script type="text/javascript" src="./js/firebase-auth.js"></script>
   </body>
 </html>
