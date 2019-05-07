@@ -37,32 +37,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="./js/webstyle.js"></script>
   <link rel="stylesheet" href="./css/WebStyle.css">
-  
 </head>
 <body>
   <div class="main">
     <!--Header-->
-    <nav class="navbar navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNav">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="./SignIn.html" class="navOptions" id="signIn">Sign In</a></li>
-            <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
-            <li class="userName hidden" id="userName"></li>
-            <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-            <li><a href="./Cart.html" class="navOptions activeNav"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <div id="styrax-nav"></div>
 
     <!--Cart Page-->
     <div class="content">
@@ -96,12 +75,9 @@
   </div>
   <a id="backToTop" title="Go Back To Top" href="">&#10140;</a>
   <!--Footer-->
-  <footer>
-    <hr style="margin-bottom: 80px;">
-    <div class="footer">
-      <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
-    </div>
-  </footer>
-    <script type="text/javascript" src="./js/firebase-auth.js"></script>
+  <div id="styrax-footer"></div>
+
+  <script src="./components/components.js" charset="utf-8"></script>
+  <script type="text/javascript" src="./js/firebase-auth.js"></script>
 </body>
 </html>

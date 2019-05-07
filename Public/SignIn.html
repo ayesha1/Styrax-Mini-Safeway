@@ -39,27 +39,7 @@ and open the template in the editor.
   <body>
     <div class="main">
       <!--Header-->
-      <nav class="navbar navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="./Home.html" title="Home Page"><img  class="navLogo img-responsive" src="./images/navLogo.jpg" alt="LogoStyrax"></a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNav">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="./SignIn.html" class="navOptions activeNav" id="signIn">Sign In</a></li>
-              <li><a href="./SignUp.html" class="navOptions" id="signUp">Sign Up</a></li>
-              <li class="userName hidden" id="userName"></li>
-              <li><a href="" onclick="handleLogout()" class="navOptions hidden" id="logOut">Log Out</a></li>
-              <li><a href="./Cart.html" class="navOptions"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <div id="styrax-nav"></div>
 
       <div class="content">
         <!--Sign In Form-->
@@ -90,13 +70,9 @@ and open the template in the editor.
     </div>
 
     <!--Footer-->
-    <footer>
-      <hr style="margin-bottom: 80px;">
-      <div class="footer">
-        <h6>&copy; 2019 SE-133. All rights reserved. <img class="teamLogo" src="./images/133-Logo.png" alt="Team Logo"></h6>
-      </div>
-    </footer>
-
+    <div id="styrax-footer"></div>
+    
+    <script src="./components/components.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/firebase-auth.js"></script>
   </body>
 </html>
