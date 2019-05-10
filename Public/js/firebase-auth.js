@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("signIn").classList.add("hidden");
           document.getElementById("signUp").classList.add("hidden");
           document.getElementById("logOut").classList.remove("hidden");
-          if (window.location.href.includes("Home.html")) {
-            document.getElementById("userName").classList.remove("hidden");
-            document.getElementById("userName").innerHTML = "Hi " + userInfo.name + "!";
-          }
+
+          document.getElementById("userName").classList.remove("hidden");
+          document.getElementById("userName").innerHTML = "Hi " + userInfo.name + "!";
+
           document.getElementById("guest_message").innerHTML = "You are Eligible for a 10% Discount on All Designated Items!";
         }).catch(function(error) {
           console.error(error.code + ": " + error.message);
