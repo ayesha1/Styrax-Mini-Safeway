@@ -6,7 +6,7 @@ A Mini-Safeway web application for CMPE 133 Class which provides online grocery 
 
 
 ## Team
-* [Ayesha Khan](https://github.com/ayesha1)
+* [Ayesha](https://github.com/ayesha1)
 * [Ryan Hopper-Lowe](https://github.com/rhopperlowe)
 * [Vicson Moses](https://github.com/VicsonMoses)
 * [Thuan Chau](https://github.com/ThuanChau22)
